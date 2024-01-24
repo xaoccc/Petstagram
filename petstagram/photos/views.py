@@ -2,11 +2,11 @@ from django.shortcuts import render
 
 # Create your views here.
 def add(request):
-    return render(request, 'add')
+    return render(request, 'photos/photo-add-page.html')
 
 def details(request, pk):
-    return render(request, 'details')
+    return render(request, 'photos/photo-details-page.html')
 
 def edit(request, pk):
-    return render(request, 'edit')
+    return render(request, 'photos/photo-edit-page.html')
 

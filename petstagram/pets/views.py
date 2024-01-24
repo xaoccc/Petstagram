@@ -2,13 +2,13 @@ from django.shortcuts import render
 
 # Create your views here.
 def add_pet(request):
-    return(request, 'add_pet')
+    return render(request, 'pets/pet-add-page.html')
 
 def pet_details(request):
-    return(request, 'pet_details')
+    return render(request, 'pets/pet-details-page.html')
 
 def edit_pet(request):
-    return(request, 'edit_pet')
+    return render(request, 'pets/pet-edit-page.html')
 
 def delete_pet(request):
-    return(request, 'delete_pet')
+    return render(request, 'pets/pet-delete-page.html')

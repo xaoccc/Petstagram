@@ -1,18 +1,18 @@
 from django.shortcuts import render
 
 def register(request):
-    return render(request, 'register')
+    return render(request, 'accounts/register-page.html')
 
 def login(request):
-    return render(request, 'login')
+    return render(request, 'accounts/login-page.html')
 
 def show_profile_details(request):
-    return render(request, 'profile-details')
+    return render(request, 'accounts/profile-details-page.html')
 
 def edit_profile(request):
-    return render(request, 'profile-edit')
+    return render(request, 'accounts/profile-edit-page.html')
 
 def delete_profile(request):
-    return render(request, 'profile-delete')
+    return render(request, 'accounts/profile-delete-page.html')
 
 
