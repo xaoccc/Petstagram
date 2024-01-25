@@ -8,11 +8,11 @@
         <div class="container">
             <div class="logo">
                 <!-- Link to Home Page -->
-                <a href="#">
+                <a href="{% url 'home-page' %}">
                     <img width="50px" src="{% static '/images/free-30-instagram-stories-icons23_122570.png' %}" alt="img1">
                 </a>
                 <!-- Link to Home Page -->
-                <a class="home" href="#">
+                <a class="home" href="{% url 'home-page' %}">
                     <i>Petstagram</i>
                 </a>
             </div>
@@ -78,7 +78,7 @@
 
         <h3>Error 404 - page not found.</h3>
         <!-- Link to Home Page -->
-        <a href="#">
+        <a href="{% url 'home-page' %}">
             <button>Return to Petstagram</button>
         </a>
     </div>

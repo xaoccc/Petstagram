@@ -8,12 +8,12 @@
         <div class="container">
             <div class="logo">
                 <!-- Link to Home Page -->
-                <a href="#">
+                <a href="{% url 'home-page' %}">
                     <img width="50px" src="{% static '/images/free-30-instagram-stories-icons23_122570.png' %}" alt="img1">
                 </a>
 
                 <!-- Link to Home Page -->
-                <a class="home" href="#">
+                <a class="home" href="{% url 'home-page' %}">
                     <i>Petstagram</i>
                 </a>
             </div>
@@ -23,28 +23,28 @@
                     <li class="nav-item">
 
                         <!-- Link to Add Pet Page -->
-                        <a href="#">
+                        <a href="{% url 'pet-add' %}">
                             <i>Add Pet</i>
                         </a>
                     </li>
                     <li class="nav-item">
 
                         <!-- Link to Add Photo Page -->
-                        <a href="#">
+                        <a href="{% url 'photo-add' %}">
                             <i>Add Photo</i>
                         </a>
                     </li>
                     <li class="nav-item">
 
                         <!-- Link to Login Page -->
-                        <a href="#">
+                        <a href="{% url 'profile-login' %}">
                             <i>Login</i>
                         </a>
                     </li>
                     <li class="nav-item">
 
                         <!-- Link to Register Page -->
-                        <a href="">
+                        <a href="{% url 'profile-register' %}">
                             <i>Register</i>
                         </a>
                     </li>
@@ -83,7 +83,7 @@
         <div class="second-option">
 
             <!-- Link to Register Page-->
-            <p>Don't have an account? <a href="#">Register</a></p>
+            <p>Don't have an account? <a href="{% url 'profile-register' %}">Register</a></p>
         </div>
     </div>
     <!-- End Login Section-->

@@ -7,7 +7,7 @@
         <div class="container">
           <div class="logo">
             <!-- Link to Home Page -->
-            <a href="#">
+            <a href="{% url 'home-page' %}">
               <img
                 width="50px"
                 src="{% static '/images/free-30-instagram-stories-icons23_122570.png' %}"
@@ -16,39 +16,41 @@
             </a>
 
             <!-- Link to Home Page -->
-            <a class="home" href="#">
+            <a class="home" href="{% url 'home-page' %}">
               <i>Petstagram</i>
             </a>
           </div>
 
           <div class="nav-links">
-            <ul class="nav-group">
-              <li class="nav-item">
-                <!-- Link to Add Pet Page -->
-                <a href="#">
-                  <i>Add Pet</i>
-                </a>
-              </li>
-              <li class="nav-item">
-                <!-- Link to Add Photo Page -->
-                <a href="#">
-                  <i>Add Photo</i>
-                </a>
-              </li>
-              <li class="nav-item">
-                <!-- Link to Profile Page -->
-                <a href="#">
-                  <i>Profile</i>
-                </a>
-              </li>
-              <li class="nav-item">
-                <!-- Log out -->
-                <a href="#">
-                  <i>Log out</i>
-                </a>
-              </li>
-            </ul>
-          </div>
+                <ul class="nav-group">
+                    <li class="nav-item">
+                        <!-- Link to Add Pet Page -->
+                        <a href="{% url 'pet-add' %}">
+                            <i>Add Pet</i>
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <!-- Link to Add Photo Page -->
+                        <a href="{% url 'photo-add' %}">
+                            <i>Add Photo</i>
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <!-- Link to Profile Page -->
+                        <a href="{% url 'profile-show' pk=1 %}">
+                            <i>Profile</i>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <!-- Log out -->
+                        <a href="{% url 'profile-logout' %}">
+                            <i>Log out</i>
+                        </a>
+                    </li>
+                </ul>
+            </div>
         </div>
       </nav>
     </header>
@@ -73,7 +75,7 @@
 
               <!-- IF the viewer is the owner of the profile -->
               <!-- Link to Edit Profile Page -->
-              <a href="#">
+              <a href="{% url 'profile-edit' pk=1 %}">
                 <img
                   class="edit-img"
                   src="{% static '/images/edit-pen-icon-6.jpg' %}"
@@ -82,7 +84,7 @@
               </a>
 
               <!-- Link to Delete Profile Page -->
-              <a href="">
+              <a href="{% url 'profile-register' %}">
                 <img
                   class="bin-img"
                   src="{% static '/images/icon-remove-22.jpg' %}"
@@ -174,76 +176,6 @@
             </a>
             <!-- End 3rd Pet Details Page -->
 
-            <!-- Start 4th Pet Details Page -->
-            <!-- Link to Pet Details Page -->
-            <a href="#">
-              <div class="head-pet">
-                <div class="status">
-                  <div class="image">
-                    <img
-                      src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3a/Cat03.jpg/1200px-Cat03.jpg"
-                      alt="pet img"
-                    />
-                  </div>
-                </div>
-                <p>Petar</p>
-              </div>
-            </a>
-            <!-- End 4th Pet Details Page -->
-
-            <!-- Start 5th Pet Details Page -->
-            <!-- Link to Pet Details Page -->
-            <a href="#">
-              <div class="head-pet">
-                <div class="status">
-                  <div class="image">
-                    <img
-                      src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQdKYe00NaD5SQjIMvXYPssq0r1dXJggL3ZIg&usqp=CAU"
-                      alt="pet img"
-                    />
-                  </div>
-                </div>
-                <p>Stamat</p>
-              </div>
-            </a>
-            <!-- End 5th Pet Details Page -->
-
-            <!-- Start 6th Pet Details Page -->
-            <!-- Link to Pet Details Page -->
-            <a href="#">
-              <div class="head-pet">
-                <div class="status">
-                  <div class="image">
-                    <img
-                      src="https://cf.ltkcdn.net/small-pets/images/orig/278587-1600x1066-goldfish-swimming-in-fish-tank.jpg"
-                      alt="pet img"
-                    />
-                  </div>
-                </div>
-                <p>Toni</p>
-              </div>
-            </a>
-            <!-- End 6th Pet Details Page -->
-
-            <!-- Start 7th Pet Details Page -->
-            <!-- Link to Pet Details Page -->
-            <a href="#">
-              <div class="head-pet">
-                <div class="status">
-                  <div class="image">
-                    <img
-                      src="https://i.pinimg.com/736x/01/6f/72/016f72c5812e1b8f71bdbf19d8c7558b.jpg"
-                      alt="pet img"
-                    />
-                  </div>
-                </div>
-                <p>Daisy</p>
-              </div>
-            </a>
-            <!-- End 7th Pet Details Page -->
-          </div>
-        </div>
-        <!-- End Pets Data Section -->
 
         <!-- Start Last Uploaded Photos Section -->
         <div class="pet-photos">

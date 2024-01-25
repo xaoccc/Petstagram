@@ -2,7 +2,7 @@ from django.urls import path
 from petstagram.photos import views
 
 urlpatterns = [
-    path('add/', views.add, name='add'),
-    path('<int:pk>/', views.details, name='details'),
-    path('<int:pk>/edit/', views.edit, name='edit')
+    path('add/', views.add_photo, name='photo-add'),
+    path('<int:pk>/', views.show_photo, name='photo-details'),
+    path('<int:pk>/edit/', views.edit_photo, name='photo-edit')
 ]

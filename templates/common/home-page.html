@@ -8,12 +8,12 @@
         <div class="container">
             <div class="logo">
                 <!-- Link to Home Page -->
-                <a href="#">
+                <a href="{% url 'home-page' %}">
                     <img width="50px" src="{% static '/images/free-30-instagram-stories-icons23_122570.png' %}" alt="img1">
                 </a>
 
                 <!-- Link to Home Page -->
-                <a class="home" href="#">
+                <a class="home" href="{% url 'home-page' %}" >
                     <i>Petstagram</i>
                 </a>
             </div>
@@ -23,42 +23,42 @@
                     <li class="nav-item">
 
                         <!-- Link to Add Pet Page -->
-                        <a href="#">
+                        <a href="{% url 'pet-add' %}">
                             <i>Add Pet</i>
                         </a>
                     </li>
                     <li class="nav-item">
 
                         <!-- Link to Add Photo Page -->
-                        <a href="#">
+                        <a href="{% url 'photo-add' %}">
                             <i>Add Photo</i>
                         </a>
                     </li>
 
                         <!-- Link to Login Page -->
                     <li class="nav-item">
-                        <a href="#">
+                        <a href="{% url 'profile-login' %}">
                             <i>Login</i>
                         </a>
                     </li>
                     <li class="nav-item">
 
                         <!-- Link to Register Page -->
-                        <a href="">
+                        <a href="{% url 'profile-register' %}">
                             <i>Register</i>
                         </a>
                     </li>
                     <li class="nav-item">
 
                         <!-- Link to Profile Page -->
-                        <a href="#">
+                        <a href="{% url 'profile-show' pk=1 %}">
                             <i>Profile</i>
                         </a>
                     </li>
                     <li class="nav-item">
 
                         <!-- Lpg out -->
-                        <a href="#">
+                        <a href="{% url 'profile-logout' %}">
                             <i>Log out</i>
                         </a>
                     </li>
@@ -91,7 +91,7 @@
                 <div class="top">
                     <div class="userDetails">
                         <!-- Link to User Profile Page -->
-                        <a href="#">
+                        <a href="{% url 'profile-show' pk=1 %}">
                             <div class="profilepic">
                                 <div class="profile_img">
                                     <div class="image">
@@ -102,7 +102,7 @@
                         </a>
                         <h3>
                             <!-- Link to User Profile Page -->
-                            <a href="#">
+                            <a href="{% url 'profile-show' pk=1 %}">
                                 <!-- if user has first name and last name -->
                                 Diyan Kalaydzhiev
                                 <!-- else -->
@@ -338,14 +338,14 @@
                     </a>
 
                     <!-- tagged pets -->
-                    <a href="pet profile">
+                    <a href="#">
                         <p class="message">
                             <b>Donny</b>
                         </p>
                     </a>
                     <!--  -->
 
-                    <a href="post details">
+                    <a href="{% url 'photo-details' pk=1 %}">
                         <h4 class="details">See details</h4>
                     </a>
 

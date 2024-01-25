@@ -8,12 +8,12 @@
         <div class="container">
             <div class="logo">
                 <!-- Link to Home Page -->
-                <a href="#">
+                <a href="{% url 'home-page' %}">
                     <img width="50px" src="{% static '/images/free-30-instagram-stories-icons23_122570.png' %}" alt="img1">
                 </a>
 
                 <!-- Link to Home Page -->
-                <a class="home" href="#">
+                <a class="home" href="{% url 'home-page' %}">
                     <i>Petstagram</i>
                 </a>
             </div>
@@ -21,29 +21,28 @@
             <div class="nav-links">
                 <ul class="nav-group">
                     <li class="nav-item">
-
                         <!-- Link to Add Pet Page -->
-                        <a href="#">
+                        <a href="{% url 'pet-add' %}">
                             <i>Add Pet</i>
                         </a>
                     </li>
-                    <li class="nav-item">
 
+                    <li class="nav-item">
                         <!-- Link to Add Photo Page -->
-                        <a href="#">
+                        <a href="{% url 'photo-add' %}">
                             <i>Add Photo</i>
                         </a>
                     </li>
-                    <li class="nav-item">
 
+                    <li class="nav-item">
                         <!-- Link to Profile Page -->
-                        <a href="#">
+                        <a href="{% url 'profile-show' pk=1 %}">
                             <i>Profile</i>
                         </a>
                     </li>
                     <li class="nav-item">
                         <!-- Log out -->
-                        <a href="#">
+                        <a href="{% url 'profile-logout' %}">
                             <i>Log out</i>
                         </a>
                     </li>
@@ -73,11 +72,11 @@
                         <!-- Pet Name -->
                         <p>Sasho</p>
                         <!-- Pet Edit Button -->
-                        <a href="">
+                        <a href="{% url 'profile-register' %}">
                             <img class="edit-img" src="{% static 'images/edit-pen-icon-6.jpg' %}" alt="edit button">
                         </a>
                         <!-- Pet Delete Button -->
-                        <a href="">
+                        <a href="{% url 'profile-register' %}">
                             <img class="bin-img" src="{% static 'images/icon-remove-22.jpg' %}" alt="bin button">
                         </a>
                     </div>

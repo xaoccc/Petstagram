@@ -1,10 +1,14 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 
-def register(request):
+
+def register_profile(request):
     return render(request, 'accounts/register-page.html')
 
-def login(request):
+def login_profile(request):
     return render(request, 'accounts/login-page.html')
+
+def logout_profile(request):
+    return redirect('home-page')
 
 def show_profile(request, pk):
     return render(request, 'accounts/profile-details-page.html')
