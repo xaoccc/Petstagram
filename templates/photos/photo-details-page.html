@@ -1,5 +1,6 @@
 {% extends 'common/base.html' %}
 {% block content %}
+{% load static %}
 
 <!-- Starts Header Section with Navigation Bar -->
 <header>
@@ -180,7 +181,7 @@
                                         <div class="profile_img">
                                             <div class="image">
                                                 <!-- User Profile Image -->
-                                                <img src="/static/images/person.png" alt="img8">
+                                                <img src="{% static '/images/person.png' %}" alt="img8">
                                             </div>
                                         </div>
                                     </div>

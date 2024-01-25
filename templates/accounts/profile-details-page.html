@@ -1,5 +1,6 @@
 {% extends 'common/base.html' %}
 {% block content %}
+{% load static %}
     <!-- Starts Header Section with Navigation Bar -->
     <header>
       <nav class="navbar">
@@ -62,7 +63,7 @@
           <div class="profile_img">
             <div class="image">
               <!-- Profile Image -->
-              <img src="/static/images/person.png" alt="img8" />
+              <img src="{% static '/images/person.png' %}" alt="img8" />
             </div>
           </div>
           <div class="personal">
@@ -75,7 +76,7 @@
               <a href="#">
                 <img
                   class="edit-img"
-                  src="/static/images/edit-pen-icon-6.jpg"
+                  src="{% static '/images/edit-pen-icon-6.jpg' %}"
                   alt="edit button"
                 />
               </a>
@@ -84,7 +85,7 @@
               <a href="">
                 <img
                   class="bin-img"
-                  src="/static/images/icon-remove-22.jpg"
+                  src="{% static '/images/icon-remove-22.jpg' %}"
                   alt="bin button"
                 />
               </a>
@@ -288,7 +289,7 @@
 
         <img
           class="no-posts"
-          src="/static/images/no_posts.png"
+          src="{% static '/images/no_posts.png' %}"
           alt="no posts"
         />
       </div>
