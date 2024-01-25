@@ -5,9 +5,9 @@ from django.utils.text import slugify
 # Create your models here.
 class Pet(models.Model):
     name = models.CharField(max_length=30)
-    photo = models.URLField()
+    pet_photo = models.URLField()
     birthdate = models.DateField(blank=True, null=True)
-    slug = models.SlugField(unique=True, blank=True, null=False)
+    slug = models.SlugField(unique=True, blank=True, null=False, editable=False)
 
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)
