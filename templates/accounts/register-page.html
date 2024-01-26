@@ -1,56 +1,6 @@
-{% extends 'common/base.html' %}
+{% extends 'common/base-common.html' %}
 {% block content %}
 {% load static %}
-
-<header>
-    <nav class="navbar">
-        <div class="container">
-            <div class="logo">
-                <!-- Link to Home Page -->
-                <a href="{% url 'home-page' %}">
-                    <img width="50px" src="{% static '/images/free-30-instagram-stories-icons23_122570.png' %}" alt="img1">
-                </a>
-
-                <!-- Link to Home Page -->
-                <a class="home" href="{% url 'home-page' %}">
-                    <i>Petstagram</i>
-                </a>
-            </div>
-
-           <div class="nav-links">
-                <ul class="nav-group">
-                    <li class="nav-item">
-                        <!-- Link to Add Pet Page -->
-                        <a href="{% url 'pet-add' %}">
-                            <i>Add Pet</i>
-                        </a>
-                    </li>
-
-                    <li class="nav-item">
-                        <!-- Link to Add Photo Page -->
-                        <a href="{% url 'photo-add' %}">
-                            <i>Add Photo</i>
-                        </a>
-                    </li>
-
-                    <li class="nav-item">
-                        <!-- Link to Profile Page -->
-                        <a href="{% url 'profile-show' pk=1 %}">
-                            <i>Profile</i>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <!-- Log out -->
-                        <a href="{% url 'profile-logout' %}">
-                            <i>Log out</i>
-                        </a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
-</header>
-<!-- End Header Section with Navigation Bar -->
 
 <!-- Starts Main Section -->
 <main>
