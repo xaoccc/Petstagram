@@ -74,6 +74,7 @@
     <div class="container">
         <div class="col-9">
 
+
             <!-- Start Searchbar Form -->
             <form class="searchbar" method="post">
                 <input type="text" placeholder="Search by pet name...">
@@ -84,6 +85,8 @@
             <!-- End Searchbar Form -->
 
             <!-- Start Pet Photos Post Section -->
+
+            {% for photo in all_photos %}
             <!-- Start First Pet Photo Post -->
             <div class="card">
 
@@ -192,180 +195,8 @@
 
                 </div>
             </div>
-            <!-- End First Pet Photo Post -->
 
-            <!-- Start Second Pet Photo Post -->
-            <div class="card">
-                <div class="top">
-                    <!-- User Details and image location -->
-                    <div class="userDetails">
-                        <a href="{% url 'profile-show' pk=1 %}">
-                            <div class="profilepic">
-                                <div class="profile_img">
-                                    <div class="image">
-                                        <img src="{% static '/images/person.png' %}" alt="img8">
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-                        <h3>
-                            <a href="{% url 'profile-show' pk=1 %}">
-                                <!-- if user has first name and last name -->
-                                Antonia Hristova
-                                <!-- else -->
-                                <!-- user username -->
-                            </a>
-                            <br>
-                            <!-- if the photo has location -->
-                            <span>Sofia, Bulgaria</span>
-                        </h3>
-                    </div>
-                    <!--  -->
-                </div>
-                <!-- Post image -->
-                <div class="imgBx" id="place the id of the photo here">
-                    <img src="{% static '/images/dog-on-bed.jpg' %}" alt="post" class="cover">
-                </div>
-                <!-- -->
-
-                <div class="bottom">
-                    <!-- like and share buttons -->
-                    <div class="actionBtns">
-                        <div class="left">
-								<span class="heart">
-                                    <a href="#">
-                                        <!-- if user has liked the photo -->
-                                        <i class="fa-solid fa-heart" style="color: #ed4040;"></i>
-                                        <!-- else -->
-                                        <i class="fa-regular fa-heart"></i>
-                                    </a>
-								</span>
-                            <a href="#">
-                                <i class="fa-solid fa-share"></i>
-                            </a>
-                        </div>
-                    </div>
-                    <!-- -->
-
-                    <a href="#">
-                        <p class="likes">152 likes</p>
-                    </a>
-
-                    <!-- tagged pets -->
-                    <a href="pet profile">
-                        <p class="message">
-                            <b>Bucky</b>
-                        </p>
-                    </a>
-                    <!--  -->
-
-                    <a href="post details">
-                        <h4 class="details">See details</h4>
-                    </a>
-
-                    <h5 class="postTime">18/09/2022</h5>
-
-                    <!-- add comments section -->
-                    <div class="addComments">
-
-                        <form method="post" action="add comment">
-                            <label for="id_body">Body:</label>
-                            <textarea name="body" cols="40" rows="10" placeholder="Add comment..." maxlength="300"
-                                      required="" id="id_body"></textarea>
-                            <button type="submit">Post</button>
-                        </form>
-                    </div>
-                    <!--  -->
-                </div>
-            </div>
-            <!-- End Second Pet Photo Post -->
-
-            <!-- Start Third Pet Photo Post -->
-            <div class="card">
-                <div class="top">
-                    <!-- User Details and image location -->
-                    <div class="userDetails">
-                        <a href="{% url 'profile-show' pk=1 %}">
-                            <div class="profilepic">
-                                <div class="profile_img">
-                                    <div class="image">
-                                        <img src="{% static '/images/person.png' %}" alt="img8">
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-                        <h3>
-                            <a href="{% url 'profile-show' pk=1 %}">
-                                <!-- if user has first name and last name -->
-                                Steven Ivanov
-                                <!-- else -->
-                                <!-- user username -->
-                            </a>
-                            <br>
-                            <!-- if the photo has location -->
-                            <span>Dobrich, Bulgaria</span>
-                        </h3>
-                    </div>
-                    <!--  -->
-                </div>
-                <!-- Post image -->
-                <div class="imgBx" id="place the id of the photo here">
-                    <img src="{% static '/images/dog-on-road.jpg' %}" alt="post" class="cover">
-                </div>
-                <!-- -->
-
-                <div class="bottom">
-                    <!-- like and share buttons -->
-                    <div class="actionBtns">
-                        <div class="left">
-								<span class="heart">
-									<a href="#">
-                                        <!-- if user has liked the photo -->
-                                        <i class="fa-solid fa-heart" style="color: #ed4040;"></i>
-                                        <!-- else -->
-                                        <i class="fa-regular fa-heart"></i>
-                                    </a>
-								</span>
-                            <a href="share">
-                                <i class="fa-solid fa-share"></i>
-                            </a>
-                        </div>
-                    </div>
-                    <!-- -->
-
-                    <a href="#">
-                        <p class="likes">176 likes</p>
-                    </a>
-
-                    <!-- tagged pets -->
-                    <a href="#">
-                        <p class="message">
-                            <b>Donny</b>
-                        </p>
-                    </a>
-                    <!--  -->
-
-                    <a href="{% url 'photo-details' pk=1 %}">
-                        <h4 class="details">See details</h4>
-                    </a>
-
-                    <h5 class="postTime">16/09/2022</h5>
-
-                    <!-- add comments section -->
-                    <div class="addComments">
-
-                        <form method="post" action="add comment">
-                            <label for="id_body">Body:</label>
-                            <textarea name="body" cols="40" rows="10" placeholder="Add comment..." maxlength="300"
-                                      required="" id="id_body"></textarea>
-                            <button type="submit">Post</button>
-                        </form>
-                    </div>
-                    <!--  -->
-                </div>
-            </div>
-            <!-- End Third Pet Photo Post -->
-
+            {% endfor %}
             <!-- End Pet Photos Post Section -->
 
         </div>

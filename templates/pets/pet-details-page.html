@@ -15,20 +15,20 @@
                 <div class="profile_img">
                     <div class="image">
                         <!-- Pet URL Image -->
-                        <img src="https://encrypted-tbn0.gstatic.com/static/images?q=tbn:ANd9GcTgoIHq82qLYnvomfz5ZkW5CLQ8VNxCyI-hUw&usqp=CAU"
+                        <img src="https://cats.com/wp-content/uploads/2022/03/Tuxedo-cat.jpg"
                              alt="img8">
                     </div>
                 </div>
                 <div class="personal">
                     <div class="edit">
                         <!-- Pet Name -->
-                        <p>Sasho</p>
+                        <p>{{ pet.name }}</p>
                         <!-- Pet Edit Button -->
-                        <a href="{% url 'profile-register' %}">
+                        <a href="{% url 'pet-edit' pet_slug=pet.slug %}">
                             <img class="edit-img" src="{% static 'images/edit-pen-icon-6.jpg' %}" alt="edit button">
                         </a>
                         <!-- Pet Delete Button -->
-                        <a href="{% url 'profile-register' %}">
+                        <a href="{% url 'pet-delete' pet_slug=pet.slug %}">
                             <img class="bin-img" src="{% static 'images/icon-remove-22.jpg' %}" alt="bin button">
                         </a>
                     </div>
@@ -46,12 +46,13 @@
 
             <!-- IF Photos Start Pet Photos Post Section -->
 
-            <!-- Start First Pet Photo Post -->
+            {% for pet_photo in all_photos %}
+            <!-- Start Pet Photo Post -->
             <div class="card">
                 <div class="top">
                     <!-- User Details and image location -->
                     <div class="userDetails">
-                        <a href="profile details">
+                        <a href="{% url 'profile-show' pk=1 %}">
                             <div class="profilepic">
                                 <div class="profile_img">
                                     <div class="image">
@@ -61,21 +62,24 @@
                             </div>
                         </a>
                         <h3>
-                            <a href="profile details">
+                            <a href="{% url 'profile-show' pk=1 %}">
                                 <!-- if user has first name and last name -->
                                 Diyan Kalaydzhiev
                                 <!-- else -->
                                 <!-- user username -->
                             </a>
                             <br>
+                            {% if pet_photo.location %}
                             <!-- if the photo has location -->
-                            <span>Bansko, Bulgaria</span>
+                            <span>{{ pet_photo.location }}</span>
+
+                            {% endif %}
                         </h3>
                     </div>
                     <!--  -->
                 </div>
                 <!-- Post image -->
-                <div class="imgBx" id="place the id of the photo here">
+                <div class="imgBx" id="{{ pet_photo.pk }}">
                     <img src="{% static '/images/axolotl.jpeg' %}" alt="post" class="cover">
                 </div>
                 <!-- -->
@@ -111,7 +115,7 @@
                     </a>
                     <a href="pet profile">
                         <p class="message">
-                            <b>Some other fish</b>
+                            <b>{{ pet_photo.description }}</b>
                         </p>
                     </a>
                     <!--  -->
@@ -120,7 +124,7 @@
                         <h4 class="details">See details</h4>
                     </a>
 
-                    <h5 class="postTime">19/09/2022</h5>
+                    <h5 class="postTime">{{ pet_photo.publication_date }}</h5>
 
                     <!-- add comments section -->
                     <div class="addComments">
@@ -135,99 +139,8 @@
                     <!--  -->
                 </div>
             </div>
-            <!-- End  First Pet Photo Post -->
-
-            <!-- Start Second Pet Photo Post -->
-            <div class="card">
-                <div class="top">
-                    <!-- User Details and image location -->
-                    <div class="userDetails">
-                        <a href="profile details">
-                            <div class="profilepic">
-                                <div class="profile_img">
-                                    <div class="image">
-                                        <img src="{% static '/images/person.png' %}" alt="img8">
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-                        <h3>
-                            <a href="profile details">
-                                <!-- if user has first name and last name -->
-                                Diyan Kalaydzhiev
-                                <!-- else -->
-                                <!-- user username -->
-                            </a>
-                            <br>
-                            <!-- if the photo has location -->
-                            <span>Bansko, Bulgaria</span>
-                        </h3>
-                    </div>
-                    <!--  -->
-                </div>
-                <!-- Post image -->
-                <div class="imgBx" id="place the id of the photo here">
-                    <img src="https:///static.scientificamerican.com/sciam/cache/file/766BFBD4-F8A1-4B7D-8416A370010B5A88_source.jpg"
-                         alt="post" class="cover">
-                </div>
-                <!-- -->
-
-                <div class="bottom">
-                    <!-- like and share buttons -->
-                    <div class="actionBtns">
-                        <div class="left">
-								<span class="heart">
-                                    <a href="#">
-                                        <!-- if user has liked the photo -->
-                                        <i class="fa-solid fa-heart" style="color: #ed4040;"></i>
-                                        <!-- else -->
-                                        <i class="fa-regular fa-heart"></i>
-                                    </a>
-								</span>
-                            <a href="share">
-                                <i class="fa-solid fa-share"></i>
-                            </a>
-                        </div>
-                    </div>
-                    <!-- -->
-
-                    <a href="#">
-                        <p class="likes">203 likes</p>
-                    </a>
-
-                    <!-- tagged pets -->
-                    <a href="pet profile">
-                        <p class="message">
-                            <b>Sasho</b>
-                        </p>
-                    </a>
-                    <a href="pet profile">
-                        <p class="message">
-                            <b>Some other fish</b>
-                        </p>
-                    </a>
-                    <!--  -->
-
-                    <a href="post details">
-                        <h4 class="details">See details</h4>
-                    </a>
-
-                    <h5 class="postTime">19/09/2022</h5>
-
-                    <!-- add comments section -->
-                    <div class="addComments">
-
-                        <form method="post" action="add comment">
-                            <label for="id_body">Body:</label>
-                            <textarea name="body" cols="40" rows="10" placeholder="Add comment..." maxlength="300"
-                                      required="" id="id_body"></textarea>
-                            <button type="submit">Post</button>
-                        </form>
-                    </div>
-                    <!--  -->
-                </div>
-            </div>
-            <!-- End Second Pet Photo Post -->
+            <!-- End Pet Photo Post -->
+            {% endfor %}
 
             <!-- IF Photos End Pet Photos Post Section -->
 
