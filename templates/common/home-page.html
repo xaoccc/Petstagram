@@ -40,13 +40,13 @@
                             <!-- Link to User Profile Page -->
                             <a href="{% url 'profile-show' pk=1 %}">
                                 <!-- if user has first name and last name -->
-                                Diyan Kalaydzhiev
+                                Bai Pesho
                                 <!-- else -->
                                 <!-- show user username -->
                             </a>
                             <br>
                             <!-- if the photo has location -->
-                            <span>Bansko, Bulgaria</span>
+                            <span>{{ photo.location }}</span>
                         </h3>
                     </div>
                 </div>
@@ -54,8 +54,6 @@
 
                 <!-- Start Pet Photo -->
                 <div class="imgBx" id="place the id of the photo here">
-                    <img src="/media/pet_photos/e91cd26a89972682913156cd966ab2de.jpg" alt="test" class="cover">
-
                     <img src="{{ photo.photo.url }}" alt="post" class="cover">
                 </div>
                 <!-- End Pet Photo -->
@@ -66,11 +64,16 @@
                         <div class="left">
                             <!-- Start Like Button -->
                             <span class="heart">
-                                <a href="#">
+                                <a href="{% url 'like' photo_id=photo.id %}">
                                     <!-- if user has liked the photo -->
+                                    {% if photo.photolike_set.all %}
                                     <i class="fa-solid fa-heart" style="color: #ed4040;"></i>
+
+                                    {% else %}
                                     <!-- else -->
                                     <i class="fa-regular fa-heart"></i>
+
+                                    {% endif %}
                                 </a>
                             </span>
                             <!-- End Like Button -->
@@ -86,32 +89,26 @@
                     <!-- End Like and Share Buttons -->
 
                     <!-- Number of Likes per Photo -->
-                    <p class="likes">203 likes</p>
+                    <p class="likes">{{ photo.photolike_set.count }} likes</p>
 
 
                     <!-- Start Tagged Pets -->
-                    <!-- Link to First Tagged Pet Details Page-->
-                    <a href="#">
-                        <p class="message">
-                            <b>Sasho</b>
-                        </p>
-                    </a>
-
-                    <!-- Link to Second Tagged Pet Details Page-->
-                    <a href="#">
-                        <p class="message">
-                            <b>Some other fish</b>
-                        </p>
-                    </a>
-                    <!-- End Tagged Pets -->
+                    <!-- Links to All Tagged Pets Details Page-->
+                    {% for pet_obj in photo.tagged_pets.all %}
+                        <a href="{% url 'pet-show' pet_slug=pet_obj.slug %}">
+                            <p class="message">
+                                <b>{{ pet_obj.name }}</b>
+                            </p>
+                        </a>
+                    {% endfor %}
 
                     <!-- Link to Photo Details Page -->
-                    <a href="#">
+                    <a href="{% url 'photo-details' pk=photo.pk %}">
                         <h4 class="details">See details</h4>
                     </a>
 
                     <!-- Date of Publication -->
-                    <h5 class="postTime">19/09/2022</h5>
+                    <h5 class="postTime">{{ photo.publication_date }}</h5>
 
                     <!-- Start Add Comments Section -->
                     <div class="addComments">

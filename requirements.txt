@@ -1,0 +1,4 @@
+Django~=4.2.9
+Pillow==10.1.0
+Psycopg2==2.9.9
+Pyperclip==1.8.2
