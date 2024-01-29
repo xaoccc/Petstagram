@@ -1,7 +1,7 @@
-from django.shortcuts import render, redirect
-
+from django.shortcuts import render, redirect, resolve_url
 from petstagram.common.models import PhotoLike
 from petstagram.photos.models import Photo
+from pyperclip import copy
 
 
 def home_page(request):
@@ -29,3 +29,9 @@ def like_functionality(request, photo_id):
 
 
     return redirect(request.META['HTTP_REFERER'] + f'#{photo_id}')
+
+def copy_link_to_clipboard(request, photo_id):
+    copy(request.META['HTTP_HOST'] + resolve_url('photo-details', photo_id))
+    return redirect(request.META['HTTP_REFERER'] + f'#{photo_id}')
+
+
