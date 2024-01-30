@@ -41,11 +41,13 @@
         <!-- End Pet Personal Data Section -->
 
         <div class="pet-posts">
-
-            {% include 'common/pet-photos.html' %}
-
-            <!-- IF NOT Photos Show No Post Image -->
-            <img class="no-posts" src="{% static '/images/no_posts.png' %}" alt="no posts image">
+            <!-- IF There Are Photos -->
+            {% if all_photos %}
+                {% include 'common/pet-photos.html' %}
+            {% else %}
+            <!-- IF There Are NO Photos Show No Post Image -->
+                <img class="no-posts" src="{% static '/images/no_posts.png' %}" alt="no posts image">
+            {% endif %}
 
         </div>
     </div>

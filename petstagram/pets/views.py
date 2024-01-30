@@ -10,7 +10,7 @@ def add_pet(request):
 
 def show_pet(request, pet_slug):
     pet = Pet.objects.get(slug=pet_slug)
-    all_photos = Photo.objects.all()
+    all_photos = pet.photo_set.all()
 
     context = {
         'pet': pet,
