@@ -25,9 +25,6 @@
 	text-shadow: 1px 1px rgb(65, 63, 63);
 }
 
-.edit-delete label {
-	display: none;
-}
 
 .edit-delete input, select {
 	background-color: rgb(240, 230, 230);
@@ -49,6 +46,12 @@
 	height: 30px;
     box-shadow: 2px 3px #888888;
     cursor: pointer;
+}
+
+.add-form-container {
+    max-width: 26rem;
+    display: flex;
+    flex-wrap: wrap;
 }
 
 .edit-delete textarea {
