@@ -15,5 +15,8 @@ class PhotoComment(PhotoReact):
     text = models.TextField(max_length=300)
     date_time_of_publication = models.DateTimeField(auto_now_add=True)
 
+    class Meta:
+        ordering = ['date_time_of_publication']
+
 class PhotoLike(PhotoReact):
     pass
