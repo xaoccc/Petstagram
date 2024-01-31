@@ -66,3 +66,11 @@
     width: 20px;
     margin-left: 5px;
 }
+
+#id_tagged_pets {
+    height: unset;
+}
+
+#id_tagged_pets input {
+    max-width: 5rem;
+}
