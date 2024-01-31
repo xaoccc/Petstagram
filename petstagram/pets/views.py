@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 
 from petstagram.pets.models import Pet
-from petstagram.pets.forms import PetForm
+from petstagram.pets.forms import PetForm, PetDeleteForm
 
 
 # Create your views here.
@@ -46,9 +46,19 @@ def edit_pet(request, pet_slug):
     context = {
         'form': form
     }
-
-
     return render(request, 'pets/pet-edit-page.html', context)
 
+
 def delete_pet(request, pet_slug):
-    return render(request, 'pets/pet-delete-page.html')
+    pet = Pet.objects.get(slug=pet_slug)
+
+    if request.method == "POST":
+        pet.delete()
+        return redirect('home-page')
+
+    form = PetDeleteForm(initial=pet.__dict__)
+
+    context = {
+        'form': form
+    }
+    return render(request, 'pets/pet-delete-page.html', context)
