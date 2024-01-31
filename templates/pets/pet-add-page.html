@@ -2,22 +2,14 @@
 {% block content %}
 {% load static %}
 
-<!-- Starts Main Section -->
 <main>
     <div class="edit-delete edit-photo">
-
-    <!-- Start Add Pet Section-->
-        <form method="POST" action="" >
-            <h2>Add pet</h2>
+        <h2>Add pet</h2>
+        <form method="post" action="" >
                 {% csrf_token %}
                 {{ form.as_p }}
             <button class="add-btn" type="submit">Add Pet</button>
-
-            <!-- End Add Pet Form -->
         </form>
-    <!-- End Add Pet Section -->
     </div>
-
 </main>
-<!-- End Main Section -->
 {% endblock %}
