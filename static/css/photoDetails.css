@@ -77,3 +77,8 @@
     position: relative;
     top: 0.5rem;
 }
+
+.edit-photo-form {
+    display: flex;
+    flex-direction: column;
+}
