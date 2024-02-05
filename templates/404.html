@@ -2,16 +2,19 @@
 {% block content %}
 {% load static %}
 
-<!-- Starts Header Section with Navigation Bar -->
 {% include 'common/header.html' %}
-<!-- End Header Section with Navigation Bar -->
 
-<!-- Starts Main Section -->
+<!-- Shows automatically when DEBUG == False -->
+<!-- Using DEBUG = False always add ALLOWED_HOSTS = ['localhost', '127.0.0.1'] in settings.py -->
+<!-- Run server using  'python manage.py runserver --insecure' to display this page properly -->
 <main>
     <!-- 404 page -->
     <div class="not-found-img">
-        <img src="{% static '/images/zillow-404-page-5f3ed6a6abaa5.gif' %}" alt="404 not found gif">
+        <img src="{% static 'images/zillow-404-page-5f3ed6a6abaa5.gif' %}" alt="404 not found gif">
+        <a href="404.html">404</a>
     </div>
+
+    <a href="404.html">404</a>
 
     <div class="not-found">
         <h1>
@@ -24,9 +27,7 @@
             <button>Return to Petstagram</button>
         </a>
     </div>
-    <!-- End 404 page -->
 
 </main>
-<!-- End Main Section -->
 
 {% endblock %}
