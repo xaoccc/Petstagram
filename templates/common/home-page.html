@@ -5,9 +5,10 @@
 <main>
     <div class="container">
         <div class="col-9">
-            <form class="searchbar" method="post" action="">
-                {% csrf_token %}
-                {{ search_form }}
+
+
+            <form class="searchbar" method="get" action="{% url 'home-page' %}">
+                <input type="text" name="pet_name">
                 <button>
                     <img src="{% static '/images/search.png' %}" height="18" alt="img2">
                 </button>

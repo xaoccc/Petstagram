@@ -1,27 +1,19 @@
 from django.shortcuts import render, redirect, resolve_url
 from petstagram.common.models import PhotoLike
 from petstagram.photos.models import Photo
-from petstagram.common.forms import CommentForm, SearchForm
+from petstagram.common.forms import CommentForm
 from pyperclip import copy
 
 
 def home_page(request):
-    all_photos = Photo.objects.all()
     comment_form = CommentForm()
-    search_form = SearchForm()
-
-    if request.method == "POST":
-        search_form = SearchForm(request.POST)
-
-        if search_form.is_valid():
-            all_photos = all_photos.filter(
-                tagged_pets__name__icontains=search_form.cleaned_data['pet_name'],
-            )
+    photos = Photo.objects.all()
+    pet_name_pattern = request.GET.get("pet_name", None)
+    all_photos = photos if not pet_name_pattern else photos.filter(tagged_pets__name__icontains=pet_name_pattern,)
 
     context = {
         'all_photos': all_photos,
         'comment_form': comment_form,
-        'search_form': search_form
     }
 
     return render(request, 'common/home-page.html', context)
