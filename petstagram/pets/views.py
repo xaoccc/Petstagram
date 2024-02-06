@@ -2,12 +2,12 @@ from django.shortcuts import render, redirect
 
 from petstagram.common.forms import CommentForm
 from petstagram.pets.models import Pet
-from petstagram.pets.forms import PetForm, PetDeleteForm
+from petstagram.pets.forms import PetCreateForm, PetEditForm, PetDeleteForm
 
 
 # Create your views here.
 def add_pet(request):
-    form = PetForm(request.POST or None)
+    form = PetCreateForm(request.POST or None)
 
     if form.is_valid():
         form.save()
@@ -22,7 +22,7 @@ def add_pet(request):
 
 def show_pet(request, pet_slug):
     pet = Pet.objects.get(slug=pet_slug)
-    all_photos = pet.photo_set.all()
+    all_photos = pet.photo_pet.all()
     comment_form = CommentForm()
 
     context = {
@@ -36,18 +36,16 @@ def show_pet(request, pet_slug):
 def edit_pet(request, pet_slug):
     pet = Pet.objects.get(slug=pet_slug)
 
-    if request.method == "GET":
-        form = PetForm(instance=pet, initial=pet.__dict__)
+    form = PetEditForm(request.POST or None, instance=pet)
 
-    else:
-        form = PetForm(request.POST, instance=pet)
-
+    if request.method == "POST":
         if form.is_valid():
             form.save()
             return redirect('pet-show', pet_slug)
 
     context = {
-        'form': form
+        'form': form,
+        'pet': pet
     }
     return render(request, 'pets/pet-edit-page.html', context)
 
@@ -55,13 +53,15 @@ def edit_pet(request, pet_slug):
 def delete_pet(request, pet_slug):
     pet = Pet.objects.get(slug=pet_slug)
 
-    if request.method == "POST":
-        pet.delete()
-        return redirect('home-page')
+    form = PetDeleteForm(request.POST or None, instance=pet)
 
-    form = PetDeleteForm(initial=pet.__dict__)
+    if request.method == "POST":
+        if form.is_valid():
+            form.save()
+            return redirect('home-page')
 
     context = {
-        'form': form
+        'form': form,
+        'pet': pet
     }
     return render(request, 'pets/pet-delete-page.html', context)

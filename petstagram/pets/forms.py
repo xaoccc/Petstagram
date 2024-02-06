@@ -1,8 +1,9 @@
 from petstagram.pets.models import Pet
 from django import forms
+from petstagram.mixins.forms_mixins import ReadOnlyFieldsMixin, DisabledFieldsMixin
 
 
-class PetForm(forms.ModelForm):
+class PetBaseForm(forms.ModelForm):
     class Meta:
         model = Pet
         fields = ["name", "birthdate", "pet_photo"]
@@ -20,12 +21,30 @@ class PetForm(forms.ModelForm):
             'pet_photo': forms.TextInput(attrs={'placeholder': 'pet photo'})
         }
 
-class PetDeleteForm(PetForm):
+class PetCreateForm(PetBaseForm):
+    pass
+
+
+class PetEditForm(PetBaseForm, DisabledFieldsMixin):
+    disabled_fields = ('birthdate',)
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        for (_, field) in self.fields.items():
-            field.widget.attrs['disabled'] = 'disabled'
-            field.widget.attrs['readonly'] = 'readonly'
+        self.apply_disabled()
+
+    def clean_birthdate(self):
+        return self.instance.birthdate
+
+class PetDeleteForm(PetBaseForm, ReadOnlyFieldsMixin):
+    readonly_fields = "__all__"
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.apply_readonly()
+
+    def save(self, commit=True):
+        if commit:
+            self.instance.delete()
+        return self.instance
+
 
 

@@ -4,7 +4,7 @@ from petstagram.photos.models import Photo
 
 
 class PhotoReact(models.Model):
-    to_photo = models.ForeignKey(Photo, on_delete=models.DO_NOTHING)
+    to_photo = models.ForeignKey(Photo, on_delete=models.CASCADE)
 
     class Meta:
         abstract = True

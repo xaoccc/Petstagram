@@ -23,52 +23,36 @@
                     </a>
                     <br>
                     {% if pet_photo.location %}
-                    <!-- if the photo has location -->
-                    <span>{{ pet_photo.location }}</span>
-
+                        <span>{{ pet_photo.location }}</span>
                     {% endif %}
                 </h3>
             </div>
-            <!--  -->
         </div>
-        <!-- Post image -->
         <div class="imgBx" id="{{ pet_photo.pk }}">
             <img src="{{ pet_photo.photo.url }}" alt="post" class="cover">
         </div>
-        <!-- -->
-
         <div class="bottom">
             <!-- like and share buttons -->
             <div class="actionBtns">
                 <div class="left">
                         <span class="heart">
                             <a href="{% url 'like' pet_photo.id %}">
-                                <!-- if user has liked the photo -->
                                 {% if pet_photo.photolike_set.all %}
-                                <i class="fa-solid fa-heart" style="color: #ed4040;"></i>
-
+                                    <i class="fa-solid fa-heart" style="color: #ed4040;"></i>
                                 {% else %}
-                                <!-- else -->
-                                <i class="fa-regular fa-heart"></i>
-
+                                    <i class="fa-regular fa-heart"></i>
                                 {% endif %}
                             </a>
                         </span>
                     <a href="{% url 'share' pet_photo.id %}">
                         <i class="fa-solid fa-share"></i>
                     </a>
-                    <!-- End Share Button -->
                 </div>
             </div>
-            <!-- End Like and Share Buttons -->
-
-            <!-- Number of Likes per Photo -->
-
             <a href="#">
                 <p class="likes">{{ pet_photo.photolike_set.count }} likes</p>
             </a>
 
-            <!-- Links to All Tagged Pets Details Page-->
             {% for pet_obj in pet_photo.tagged_pets.all %}
                 <a href="{% url 'pet-show' pet_slug=pet_obj.slug %}">
                     <p class="message">
@@ -79,15 +63,12 @@
                     </p>
                 </a>
             {% endfor %}
-            <!--  -->
 
             <a href="{% url 'photo-details' pk=pet_photo.id %}">
                 <h4 class="details">See details</h4>
             </a>
 
             <h5 class="postTime">{{ pet_photo.publication_date }}</h5>
-
-            <!-- add comments section -->
             <div class="addComments">
                 <form method="post" action="{% url 'comment' pet_photo.id %}">
                     {% csrf_token %}
@@ -95,7 +76,6 @@
                     <button type="submit">Post</button>
                 </form>
             </div>
-            <!--  -->
         </div>
     </div>
     {% endfor %}

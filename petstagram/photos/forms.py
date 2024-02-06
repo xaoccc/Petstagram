@@ -1,14 +1,19 @@
 from django import forms
 from petstagram.photos.models import Photo, Pet
+from petstagram.mixins.forms_mixins import ReadOnlyFieldsMixin, DisabledFieldsMixin
 
-class PhotoCreateForm(forms.ModelForm):
-    tagged_pets = forms.ModelMultipleChoiceField(queryset=Pet.objects.all(), widget=forms.CheckboxSelectMultiple, label="Tag Pets")
+class PhotoBaseForm(forms.ModelForm):
     class Meta:
+        tagged_pets = forms.ModelMultipleChoiceField(queryset=Pet.objects.all(), widget=forms.CheckboxSelectMultiple,
+                                                     label="Tag Pets")
         model = Photo
         fields = ['photo', 'description', 'location', 'tagged_pets']
 
-class PhotoEditForm(forms.ModelForm):
-    tagged_pets = forms.ModelMultipleChoiceField(queryset=Pet.objects.all(), widget=forms.CheckboxSelectMultiple, label="Tag Pets")
+class PhotoCreateForm(PhotoBaseForm):
+    pass
+
+
+class PhotoEditForm(PhotoBaseForm):
     class Meta:
         model = Photo
         exclude = ['photo']
