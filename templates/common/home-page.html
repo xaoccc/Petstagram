@@ -2,13 +2,9 @@
 {% block content %}
 {% load static %}
 
-<!-- Starts Main Section -->
 <main>
     <div class="container">
         <div class="col-9">
-
-
-            <!-- Start Searchbar Form -->
             <form class="searchbar" method="post" action="">
                 {% csrf_token %}
                 {{ search_form }}
@@ -16,12 +12,9 @@
                     <img src="{% static '/images/search.png' %}" height="18" alt="img2">
                 </button>
             </form>
-            <!-- End Searchbar Form -->
-
             {% include 'common/pet-photos.html' %}
 
         </div>
     </div>
 </main>
-<!-- End Main Section -->
 {% endblock %}

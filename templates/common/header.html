@@ -24,33 +24,33 @@
                         </a>
                     </li>
                     <li class="nav-item">
-
-                        <!-- Link to Add Photo Page -->
                         <a href="{% url 'photo-add' %}">
                             <i>Add Photo</i>
                         </a>
                     </li>
-
-                        <!-- Link to Login Page -->
-                    <li class="nav-item">
-                        <a href="{% url 'profile-login' %}">
-                            <i>Login</i>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-
-                        <!-- Link to Register Page -->
-                        <a href="{% url 'profile-register' %}">
-                            <i>Register</i>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-
-                        <!-- Link to Profile Page -->
-                        <a href="{% url 'profile-show' pk=1 %}">
-                            <i>Profile</i>
-                        </a>
-                    </li>
+                    {% if not user.is_authenticated %}
+                        <li class="nav-item">
+                            <a href="{% url 'profile-login' %}">
+                                <i>Login</i>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{% url 'profile-register' %}">
+                                <i>Register</i>
+                            </a>
+                        </li>
+                    {% else %}
+                        <li class="nav-item">
+                            <a href="{% url 'profile-show' pk=1 %}">
+                                <i>Profile</i>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{% url 'profile-logout' %}">
+                                <i>Log out</i>
+                            </a>
+                        </li>
+                    {% endif %}
                 </ul>
             </div>
         </div>
