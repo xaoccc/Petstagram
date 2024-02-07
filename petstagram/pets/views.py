@@ -65,3 +65,5 @@ def delete_pet(request, pet_slug):
         'pet': pet
     }
     return render(request, 'pets/pet-delete-page.html', context)
+
+

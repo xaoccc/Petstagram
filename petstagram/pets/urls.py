@@ -1,5 +1,4 @@
 from django.urls import path, include
-
 from petstagram.pets import views
 
 urlpatterns = (
@@ -8,5 +7,5 @@ urlpatterns = (
         path('', views.show_pet, name='pet-show'),
         path('edit/', views.edit_pet, name='pet-edit'),
         path('delete/', views.delete_pet, name='pet-delete'),
-    ]))
+    ])),
 )
