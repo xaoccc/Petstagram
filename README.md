@@ -48,9 +48,8 @@ Steps in creating a Django project:
 4. Create urls for each view/template inside each app:
    `path('path1/', views.view_name, name='template-name'),` for FBV  
    `path('path1/', views.ViewName.as_view(optional parameters), name='template-name'),` for CBV
-5. Create views
+5. Create class based views
 6. Create forms in new file forms.py
 7. Create templates
-8. Add styles
+8. Create styles
 9. Add media
-
