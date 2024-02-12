@@ -54,3 +54,18 @@ Steps in creating a Django project:
 8. Add styles
 9. Add media
 
+### Notes
+* Use Class Based Views
+* If form is needed, always create forms.py, so you can customize it later if required
+* When model is called in the form, this model is not necessary to be called again in the view
+* Use form.as_div in the template whenever possible. Using forms.py it is much easier
+* Follow SOLID!
+* Working with model instance fields inside DeleteView/EditView:
+ ```    
+def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        model_instance = self.get_object()
+        context['form'].fields['field_name'].widget.attrs['attr_name'] = model_instance.field_name
+```
+
+
