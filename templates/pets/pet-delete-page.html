@@ -2,24 +2,17 @@
 {% block content %}
 {% load static %}
 
-<!-- Starts Main Section -->
 <main>
-    <!-- Starts Delete Pet Section -->
     <div class="edit-delete edit-photo">
         <h2>Delete pet</h2>
-        <!-- Starts Delete Pet Form -->
-        <form method="post" action="#">
-            <!-- Delete Pet Button -->
+        <form method="post" action="{% url 'pet-delete' pet_slug=pet.slug %}">
             {% csrf_token %}
             {{ form.as_p }}
             <button class="delete-btn" type="submit">Delete</button>
-            <!-- Go Back Button -->
             <a class="btn btn-primary" href="javascript:history.back()">
                 <button class="edit-btn" type="button">Go back</button>
             </a>
         </form>
-        <!-- End Delete Pet Form -->
     </div>
-    <!-- End Delete Pet Section -->
 </main>
 {% endblock %}

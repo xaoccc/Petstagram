@@ -5,8 +5,6 @@
 <main>
     <div class="container">
         <div class="col-9">
-
-
             <form class="searchbar" method="get" action="{% url 'home-page' %}">
                 <input type="text" name="pet_name">
                 <button>
@@ -14,7 +12,6 @@
                 </button>
             </form>
             {% include 'common/pet-photos.html' %}
-
         </div>
     </div>
 </main>

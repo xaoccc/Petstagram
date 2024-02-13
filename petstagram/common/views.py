@@ -1,5 +1,4 @@
 from django.shortcuts import render, redirect, resolve_url
-
 from petstagram.common.models import PhotoLike
 from petstagram.photos.models import Photo
 from petstagram.common.forms import CommentForm
