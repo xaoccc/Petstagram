@@ -1,22 +1,34 @@
+
+from django.http import request
 from django.shortcuts import render, redirect, resolve_url
+from django.views.generic import ListView
+
 from petstagram.common.models import PhotoLike
 from petstagram.photos.models import Photo
 from petstagram.common.forms import CommentForm
 from pyperclip import copy
 
 
-def home_page(request):
-    comment_form = CommentForm()
-    photos = Photo.objects.all()
-    pet_name_pattern = request.GET.get("pet_name", None)
-    all_photos = photos if not pet_name_pattern else photos.filter(tagged_pets__name__icontains=pet_name_pattern,)
+class HomePageView(ListView):
+    model = Photo
+    template_name = 'common/home-page.html'
+    context_object_name = 'all_photos'
+    paginate_by = 1
 
-    context = {
-        'all_photos': all_photos,
-        'comment_form': comment_form,
-    }
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['comment_form'] = CommentForm()
+        return context
 
-    return render(request, 'common/home-page.html', context)
+    def get_queryset(self):
+        queryset = Photo.objects.all()
+        pet_name_pattern = self.request.GET.get("pet_name", None)
+        if pet_name_pattern:
+            queryset = queryset.filter(tagged_pets__name__icontains=pet_name_pattern)
+        return queryset
+
+
+
 
 def error_404(request):
     return render(request, '404.html')
