@@ -1,3 +1,4 @@
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import User
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, DetailView, UpdateView, DeleteView
@@ -6,7 +7,7 @@ from petstagram.pets.models import Pet
 from petstagram.pets.forms import PetCreateForm, PetEditForm, PetDeleteForm
 
 
-class AddPetView(CreateView):
+class AddPetView(CreateView, LoginRequiredMixin):
     model = Pet
     template_name = 'pets/pet-add-page.html'
     form_class = PetCreateForm
