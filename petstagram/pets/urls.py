@@ -2,7 +2,7 @@ from django.urls import path, include
 from petstagram.pets import views
 
 urlpatterns = (
-    path('add/', views.add_pet, name='pet-add'),
+    path('add/', views.AddPetView.as_view(), name='pet-add'),
     path('<slug:pet_slug>/', include([
         path('', views.show_pet, name='pet-show'),
         path('edit/', views.edit_pet, name='pet-edit'),

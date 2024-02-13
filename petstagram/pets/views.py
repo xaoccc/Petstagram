@@ -1,24 +1,17 @@
 from django.shortcuts import render, redirect
-
+from django.urls import reverse_lazy
+from django.views.generic import CreateView
 from petstagram.common.forms import CommentForm
 from petstagram.pets.models import Pet
 from petstagram.pets.forms import PetCreateForm, PetEditForm, PetDeleteForm
 
 
-# Create your views here.
-def add_pet(request):
-    form = PetCreateForm(request.POST or None)
+class AddPetView(CreateView):
+    model = Pet
+    template_name = 'pets/pet-add-page.html'
+    form_class = PetCreateForm
+    success_url = reverse_lazy('home-page')
 
-    if form.is_valid():
-        form.save()
-        return redirect('home-page')
-
-
-    context = {
-        'form': form
-    }
-
-    return render(request, 'pets/pet-add-page.html', context)
 
 def show_pet(request, pet_slug):
     pet = Pet.objects.get(slug=pet_slug)
