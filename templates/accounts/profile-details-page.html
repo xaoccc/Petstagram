@@ -53,7 +53,7 @@
         <div class="pets">
           <div class="statuses">
             {% for pet in own_pets %}
-            <a href="{% url 'pet-show' pet_slug=pet.slug %}">
+            <a href="{% url 'pet-show' username=user.username pet_slug=pet.slug %}">
               <div class="head-pet">
                 <div class="status">
                   <div class="image">
@@ -69,17 +69,18 @@
             </a>
             {% endfor %}
           </div>
-        {% if photos %}
-          <div class="pet-photos">
-              {% for photo in photos %}
+          {% for photo in photos %}
+            <div class="pet-photos">
                 <a href="{% url 'photo-details' pk=photo.id %}">
                   <img src="{{ photo.photo.url }}"  alt="{{ own_pets.first }}" />
                 </a>
-              {% endfor %}
-          </div>
-        {% else %}
-          <img class="no-posts" src="{% static '/images/no_posts.png' %}"  alt="no posts"/>
-        {% endif %}
+            </div>
+          {% empty %}
+            <img class="no-posts" src="{% static '/images/no_posts.png' %}"  alt="no posts"/>
+          {% endfor %}
+
+
+
       </div>
     </div>
 

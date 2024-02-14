@@ -1,16 +1,44 @@
-from django.contrib.auth.forms import AuthenticationForm
+from django import forms
+from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from django.contrib.auth.models import User
 from django.contrib.auth.views import LoginView
-from django.shortcuts import render, redirect
+from django.shortcuts import render
 from django.urls import reverse_lazy
-from django.views.generic import DetailView, ListView
-
+from django.views.generic import DetailView, ListView, CreateView
 from petstagram.pets.models import Pet
 from petstagram.photos.models import Photo
+from django.contrib.auth.views import LogoutView
 
+class CustomUserCreationForm(UserCreationForm):
+    email = forms.EmailField(label="Email", required=True)
 
-def register_profile(request):
-    return render(request, 'accounts/register-page.html')
+    class Meta(UserCreationForm.Meta):
+        model = User
+        fields = ['username', 'email', 'password1', 'password2']
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['username'].help_text = ''
+        self.fields['password1'].help_text = ''
+        self.fields['password2'].help_text = ''
+
+class CustomLogoutView(LogoutView):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.template_name = 'common/home-page.html'
+
+class CreateProfileView(CreateView):
+    model = User
+    form_class = CustomUserCreationForm
+    template_name = 'accounts/register-page.html'
+    success_url = reverse_lazy('home-page')
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['form'].fields['username'].widget.attrs['placeholder'] = 'Username'
+        context['form'].fields['email'].widget.attrs['placeholder'] = 'Email'
+        context['form'].fields['password1'].widget.attrs['placeholder'] = 'Password'
+        context['form'].fields['password2'].widget.attrs['placeholder'] = 'Repeat Password'
+        return context
 
 
 class LoginProfileView(LoginView):
@@ -18,9 +46,6 @@ class LoginProfileView(LoginView):
     template_name = 'accounts/login-page.html'
     success_url = reverse_lazy('home-page')
 
-
-def logout_profile(request):
-    return redirect('home-page')
 
 class DetailProfileView(DetailView, ListView):
     model = User
@@ -38,19 +63,6 @@ class DetailProfileView(DetailView, ListView):
         context['photos'] = photos
         context['photos_count'] = photos.count()
         return context
-
-
-def show_profile(request, pk):
-    owner = User.objects.filter(pk=pk)
-    # own_pets should be filtered on the profile pk, therefore User and Pet should be connected models
-    # For testing purpose, here pk=pk (hardcoded).
-    own_pets = Pet.objects.filter(pk=2)
-
-    context = {
-        'own_pets': own_pets
-    }
-
-    return render(request, 'accounts/profile-details-page.html', context)
 
 
 

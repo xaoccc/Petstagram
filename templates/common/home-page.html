@@ -9,7 +9,9 @@
                 <input type="text" name="pet_name">
                 <button><img src="{% static '/images/search.png' %}" height="18" alt="img2"></button>
             </form>
-            {% include 'common/pet-photos.html' %}
+            {% if user.is_authenticated %}
+                {% include 'common/pet-photos.html' %}
+            {% endif %}
 
                 <div class="pagination">
                     <span class="step-links">

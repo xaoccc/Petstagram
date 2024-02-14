@@ -16,18 +16,6 @@
 
             <div class="nav-links">
                 <ul class="nav-group">
-                    <li class="nav-item">
-
-                        <!-- Link to Add Pet Page -->
-                        <a href="{% url 'pet-add' %}">
-                            <i>Add Pet</i>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="{% url 'photo-add' %}">
-                            <i>Add Photo</i>
-                        </a>
-                    </li>
                     {% if not user.is_authenticated %}
                         <li class="nav-item">
                             <a href="{% url 'profile-login' %}">
@@ -40,6 +28,16 @@
                             </a>
                         </li>
                     {% else %}
+                        <li class="nav-item">
+                            <a href="{% url 'pet-add' %}">
+                                <i>Add Pet</i>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{% url 'photo-add' %}">
+                                <i>Add Photo</i>
+                            </a>
+                        </li>
                         <li class="nav-item">
                             <a href="{% url 'profile-show' pk=1 %}">
                                 <i>Profile</i>
