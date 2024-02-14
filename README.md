@@ -1,4 +1,14 @@
 # Petstagram
+
+### Description
+This is a social media app for pet lovers. Here you can:
+- Register, Login, Update, Delete, View users
+- Add, Update and Delete pets
+- Add, Like and Comment pictures of your pets
+- Move easily between pages
+- Search pet by name
+
+
 Steps in creating a Django project:
 1. Create the apps using the command $ python manage.py startapp app_name. For each app do this:
 2. Setup  

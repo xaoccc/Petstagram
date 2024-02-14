@@ -14,10 +14,10 @@
                 <div class="personal">
                     <div class="edit">
                         <p>{{ pet.name }}</p>
-                        <a href="{% url 'pet-edit' username=user.username pet_slug=pet.slug %}">
+                        <a href="{% url 'pet-edit' username=pet.owner.username pet_slug=pet.slug %}">
                             <img class="edit-img" src="{% static 'images/edit-pen-icon-6.jpg' %}" alt="edit button">
                         </a>
-                        <a href="{% url 'pet-delete' username=user.username pet_slug=pet.slug %}">
+                        <a href="{% url 'pet-delete' username=pet.owner.username pet_slug=pet.slug %}">
                             <img class="bin-img" src="{% static 'images/icon-remove-22.jpg' %}" alt="bin button">
                         </a>
                     </div>

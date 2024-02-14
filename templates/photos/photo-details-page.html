@@ -75,40 +75,25 @@
                     <div class="actionBtns">
                         <div class="left">
 
-                            <!-- Start Like Button -->
                             <span class="heart">
-
-                                    <!-- Link to Like Path -->
-                                    <a href="#">
-                                        <!-- if user has liked the photo -->
-                                        {% if photo.photolike_set.all %}
-                                            <i class="fa-solid fa-heart" style="color: #ed4040;"></i>
-                                        <!-- else -->
-                                        {% else %}
-                                            <i class="fa-regular fa-heart"></i>
-                                        {% endif %}
-                                    </a>
+                                <a href="#">
+                                    {% if photo.photolike_set.all %}
+                                        <i class="fa-solid fa-heart" style="color: #ed4040;"></i>
+                                    {% else %}
+                                        <i class="fa-regular fa-heart"></i>
+                                    {% endif %}
+                                </a>
                             </span>
-                            <!-- End Like Button -->
 
-                            <!-- Start Share  Button -->
-
-                            <!-- Link to Share Path -->
                             <a href="#">
                                 <i class="fa-solid fa-share"></i>
                             </a>
                         </div>
                     </div>
-                    <!-- End Like and Share Buttons Section -->
-
-                    <!-- Number of Likes for the Photo -->
                     <p class="likes">{{ photo.photolike_set.count }} likes</p>
 
-                    <!-- Start Tagged Pets Section-->
-
-                    <!-- Tagged Pets Details Pages -->
                     {% for pet in photo.tagged_pets.all %}
-                        <a href="{% url 'pet-show' pet.slug %}">
+                        <a href="{% url 'pet-show' username=pet.owner.username pet_slug=pet.slug %}">
                             <p class="message">
                                 <b>{{ pet.name }}</b>
                             </p>
