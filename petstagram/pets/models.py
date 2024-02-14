@@ -1,3 +1,4 @@
+from django.contrib.auth.models import User
 from django.db import models
 from django.utils.text import slugify
 
@@ -8,6 +9,7 @@ class Pet(models.Model):
     pet_photo = models.URLField()
     birthdate = models.DateField(blank=True, null=True)
     slug = models.SlugField(unique=True, blank=True, null=False, editable=False)
+    owner = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)
 
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)

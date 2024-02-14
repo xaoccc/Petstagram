@@ -56,7 +56,8 @@ class DetailProfileView(DetailView, ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        pets = Pet.objects.filter(pk__lte=2)
+        user = self.get_object()
+        pets = Pet.objects.filter(owner=user)
         photos = Photo.objects.filter(tagged_pets__in=pets)
         context['own_pets'] = pets
         context['pets_count'] = pets.count()
