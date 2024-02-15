@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth.views import LoginView
 from django.shortcuts import render
 from django.urls import reverse_lazy
-from django.views.generic import DetailView, ListView, CreateView, UpdateView
+from django.views.generic import DetailView, ListView, CreateView, UpdateView, DeleteView
 from petstagram.pets.models import Pet
 from petstagram.photos.models import Photo
 from django.contrib.auth.views import LogoutView
@@ -76,7 +76,10 @@ class EditProfileView(UpdateView):
         form.fields['username'].help_text = ''
         return form
 
-def delete_profile(request, pk):
-    return render(request, 'accounts/profile-delete-page.html')
+class DeleteProfileView(DeleteView):
+    model = User
+    template_name = 'accounts/profile-delete-page.html'
+    success_url = reverse_lazy('home-page')
+
 
 

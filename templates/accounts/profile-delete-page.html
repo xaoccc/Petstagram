@@ -12,7 +12,12 @@
             </h1>
             <div class="sure-buttons">
                 <!-- Yes (Delete Profile) Button -->
-                <button>Yes</button>
+                <form action="" method="post">
+                    {{ form }}
+                    {% csrf_token %}
+                    <button>Yes</button>
+                </form>
+
                 <!-- Go Back Button -->
                 <a class="edit-btn" href="javascript:history.back()">Go Back</a>
             </div>

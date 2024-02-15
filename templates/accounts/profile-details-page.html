@@ -14,7 +14,7 @@
               <!-- User Username -->
               <p>{{ user.username }}</p>
 
-              <a href="{% url 'profile-edit' pk=1 %}">
+              <a href="{% url 'profile-edit' pk=user.pk %}">
                 <img
                   class="edit-img"
                   src="{% static '/images/edit-pen-icon-6.jpg' %}"
@@ -23,7 +23,7 @@
               </a>
 
               <!-- Link to Delete Profile Page -->
-              <a href="{% url 'profile-register' %}">
+              <a href="{% url 'profile-delete' pk=user.pk %}">
                 <img
                   class="bin-img"
                   src="{% static '/images/icon-remove-22.jpg' %}"
