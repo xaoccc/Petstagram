@@ -8,7 +8,6 @@ from petstagram.pets.forms import PetCreateForm, PetEditForm, PetDeleteForm
 
 
 class AddPetView(CreateView, LoginRequiredMixin):
-    model = Pet
     template_name = 'pets/pet-add-page.html'
     form_class = PetCreateForm
     success_url = reverse_lazy('profile-show', kwargs={"pk": User.objects.first().pk})
