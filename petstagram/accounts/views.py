@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth.views import LoginView
 from django.shortcuts import render
 from django.urls import reverse_lazy
-from django.views.generic import DetailView, ListView, CreateView
+from django.views.generic import DetailView, ListView, CreateView, UpdateView
 from petstagram.pets.models import Pet
 from petstagram.photos.models import Photo
 from django.contrib.auth.views import LogoutView
@@ -65,10 +65,16 @@ class DetailProfileView(DetailView, ListView):
         context['photos_count'] = photos.count()
         return context
 
+class EditProfileView(UpdateView):
+    model = User
+    template_name = 'accounts/profile-edit-page.html'
+    fields = ['first_name', 'last_name', 'username', 'email']
+    success_url = reverse_lazy('home-page')
 
-
-def edit_profile(request, pk):
-    return render(request, 'accounts/profile-edit-page.html')
+    def get_form(self, form_class=None):
+        form = super().get_form(form_class)
+        form.fields['username'].help_text = ''
+        return form
 
 def delete_profile(request, pk):
     return render(request, 'accounts/profile-delete-page.html')

@@ -140,25 +140,27 @@
 label {
     width: 100px;
 }
-
-.edit-photo input, select, .edit-photo textarea, .label-input input {
+/* edit */
+.edit-photo input, select, .edit-photo textarea, .label-input input, .profile-edit div input {
     width: 300px !important;
 }
-.label-input {
+
+.label-input, .profile-edit div {
     display: flex;
     margin-top: -10px;
 }
 
-.label-input:first-of-type {
+.label-input:first-of-type, .profile-edit div {
     margin-top: 10px;
 }
 
-.label-input label {
+.label-input label, .profile-edit div label {
     display: initial !important;
     width: 40%;
     margin-top: 12px;
     text-align: left;
 }
+/* edit end */
 
 #id_tagged_pets {
     height: 82px;
