@@ -12,7 +12,7 @@
             {% if user.is_authenticated %}
                 {% include 'common/pet-photos.html' %}
             {% endif %}
-
+<!--TODO: Create custom html tags and add functionality for pagination while search filtered -->
                 <div class="pagination">
                     <span class="step-links">
                         {% if page_obj.has_previous %}

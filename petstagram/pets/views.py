@@ -12,6 +12,11 @@ class AddPetView(CreateView, LoginRequiredMixin):
     form_class = PetCreateForm
     success_url = reverse_lazy('profile-show', kwargs={"pk": User.objects.first().pk})
 
+    def form_valid(self, form):
+        form.instance.owner = self.request.user
+        return super().form_valid(form)
+
+
 class DetailsPetView(DetailView):
     model = Pet
     context_object_name = 'pet'
