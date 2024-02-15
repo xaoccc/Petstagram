@@ -75,7 +75,40 @@ Steps in creating a Django project:
 def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         model_instance = self.get_object()
-        context['form'].fields['field_name'].widget.attrs['attr_name'] = model_instance.field_name
+        context['form'].fields['FIELD_NAME'].widget.attrs['ATTRIBUTE_NAME'] = VALUE
 ```
-
+* Customizing a form in UpdateView and other CBVs:
+```    
+ def get_form(self, form_class=None):
+     form = super().get_form(form_class)
+     form.fields['FIELD_NAME'].ATTRIBUTE_NAME = 'VALUE'
+     return form
+```
+* CBVs attributes:
+* DetailView:  
+**model: required**   
+template_name:   
+context_object_name:   
+slug_field and slug_url_kwarg:   
+* CreateView:  
+**model: required**  
+template_name:  
+**form_class/fields: required**  
+success_url:
+* UpdateView:  
+**model: required**  
+template_name:  
+**form_class/fields: required**  
+success_url:   
+* ListView:  
+**model: required**  
+template_name:  
+context_object_name:  
+paginate_by:  
+ordering:  
+* DeleteView:  
+**model: required**  
+template_ 
+success_url:  
+slug_field and slug_url_kwarg:  
 
