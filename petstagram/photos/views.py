@@ -1,56 +1,41 @@
 from django.shortcuts import render, redirect
-
+from django.views.generic import CreateView, DetailView, UpdateView
 from petstagram.common.forms import CommentForm
 from petstagram.photos.models import Photo
 from petstagram.photos.forms import PhotoCreateForm, PhotoEditForm
 
 
-# Create your views here.
-def add_photo(request):
-    form = PhotoCreateForm(request.POST or None, request.FILES or None)
+class AddPhotoView(CreateView):
+    model = Photo
+    template_name = 'photos/photo-add-page.html'
+    form_class = PhotoCreateForm
 
-    if form.is_valid():
-        form.save()
-        return redirect('home-page')
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        return super().form_valid(form)
 
-    context = {
-        'form': form
-    }
+    def get_success_url(self):
+        return '/'
 
-    return render(request, 'photos/photo-add-page.html', context)
+class PhotoDetailsView(DetailView):
+    model = Photo
+    template_name = 'photos/photo-details-page.html'
 
-def show_photo(request, pk):
-    photo = Photo.objects.get(pk=pk)
-    likes = photo.photolike_set.all()
-    comments = photo.photocomment_set.all()
-    comment_form = CommentForm()
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['comment_form'] = CommentForm()
+        context['likes'] = self.object.photolike_set.all()
+        context['comments'] = self.object.photocomment_set.all()
+        return context
 
-    context = {
-        'photo': photo,
-        'likes': likes,
-        'comments': comments,
-        'comment_form': comment_form
-    }
+class PhotoEditView(UpdateView):
+    model = Photo
+    template_name = 'photos/photo-edit-page.html'
+    form_class = PhotoEditForm
 
-    return render(request, 'photos/photo-details-page.html', context)
+    def get_success_url(self):
+        return '/'
 
-def edit_photo(request, pk):
-    photo = Photo.objects.get(pk=pk)
-
-    if request.method == "GET":
-        form = PhotoEditForm(instance=photo)
-
-    else:
-        form = PhotoEditForm(request.POST, instance=photo)
-        if form.is_valid():
-            form.save()
-            return redirect('home-page')
-
-    context = {
-        'form': form
-    }
-
-    return render(request, 'photos/photo-edit-page.html', context)
 
 def delete_photo(request, pk):
     Photo.objects.get(pk=pk).delete()

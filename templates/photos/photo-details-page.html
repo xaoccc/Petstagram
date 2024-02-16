@@ -15,7 +15,7 @@
                     <div class="userDetails">
 
                         <!-- !!!Link to User Profile Details Page!!! -->
-                        <a href="#">
+                        <a href="{% url 'profile-show' pk=user.id %}">
                             <div class="profilepic">
                                 <div class="profile_img">
                                     <div class="image">
@@ -26,21 +26,19 @@
                         </a>
                         <h3>
 
-                            <!-- Link to User Profile Details Page -->
-                            <a href="#">
-                                <!-- IF user has first name and last name -->
-                                Bai Pesho
-                                <!-- else -->
-                                <!-- show user username -->
+                            <a href="{% url 'profile-show' pk=user.id %}">
+                                {% if user.is_authenticated %}
+                                    {{ user.username }}
+                                {% else %}
+                                    User
+                                {% endif %}
                             </a>
                             <br>
 
-                            <!-- IF the photo has location -->
                             {% if photo.location %}
                                 <span>{{ photo.location }}</span>
                             {% endif %}
 
-                            <!-- IF the viewer is the creator of the photo -->
                             <div class="edit-delete-btns">
 
                                 <!-- Link to Edit Pet Photo Page -->
@@ -54,12 +52,9 @@
                                     <img class="bin-img" src="{% static 'images/icon-remove-22.jpg' %}" alt="bin button">
                                 </a>
                             </div>
-                            <!-- End IF the viewer is the creator of the photo -->
 
                         </h3>
                     </div>
-                    <!-- End User Details and Image Location Section -->
-
                 </div>
 
                 <!-- Start Pet Photo -->
@@ -76,7 +71,7 @@
                         <div class="left">
 
                             <span class="heart">
-                                <a href="#">
+                                <a href="{% url 'like' photo.id %}">
                                     {% if photo.photolike_set.all %}
                                         <i class="fa-solid fa-heart" style="color: #ed4040;"></i>
                                     {% else %}
@@ -85,7 +80,7 @@
                                 </a>
                             </span>
 
-                            <a href="#">
+                            <a href="{% url 'share' photo.id %}">
                                 <i class="fa-solid fa-share"></i>
                             </a>
                         </div>
@@ -150,17 +145,11 @@
                         {{ comment_form }}
                         <button type="submit">Post</button>
                     </form>
-                    <!-- End Add Comments Form -->
-
                 </div>
-                <!-- End Add Comments Section -->
-
             </div>
-            <!-- End Pet Photo Post Section -->
-
         </div>
     </div>
 
 </main>
-<!-- End Main Section -->
+
 {% endblock %}
