@@ -6,30 +6,37 @@
     <div class="container">
         <div class="col-9">
             <form class="searchbar" method="get" action="{% url 'home-page' %}">
-                <input type="text" name="pet_name">
+                <input type="text" name="pet_name" placeholder="Search pet by name">
                 <button><img src="{% static '/images/search.png' %}" height="18" alt="img2"></button>
             </form>
             {% if user.is_authenticated %}
                 {% include 'common/pet-photos.html' %}
+                {% if page_obj.has_previous and page_obj.has_next %}
+                    <a class="step-links" href="?page=1{{ request_pet_name }}">first</a>
+                    <a href="?page={{ page_obj.previous_page_number }}{{ request_pet_name }}">
+                        <i class="fa-solid fa-arrow-left"></i>
+                    </a>
+                    <span class="step-links">Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.</span>
+                    <a href="?page={{ page_obj.next_page_number }}{{ request_pet_name }}">
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </a>
+                    <a class="step-links" href="?page={{ page_obj.paginator.num_pages }}{{ request_pet_name }}">last</a>
+
+                {% elif page_obj.has_previous %}
+                    <a class="step-links" href="?page=1{{ request_pet_name }}">first</a>
+                    <a href="?page={{ page_obj.previous_page_number }}{{ request_pet_name }}">
+                        <i class="fa-solid fa-arrow-left"></i>
+                    </a>
+                    <span class="step-links">Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.</span>
+
+                {% elif page_obj.has_next %}
+                    <span class="step-links">Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.</span>
+                    <a href="?page={{ page_obj.next_page_number }}{{ request_pet_name }}">
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </a>
+                    <a class="step-links" href="?page={{ page_obj.paginator.num_pages }}{{ request_pet_name }}">last</a>
+                {% endif %}
             {% endif %}
-<!--TODO: Create custom html tags and add functionality for pagination while search filtered -->
-                <div class="pagination">
-                    <span class="step-links">
-                        {% if page_obj.has_previous %}
-                            <a href="?page=1">&laquo; first</a>
-                            <a href="?page={{ page_obj.previous_page_number }}">previous</a>
-                        {% endif %}
-
-                        <span class="current">
-                            Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
-                        </span>
-
-                        {% if page_obj.has_next %}
-                            <a href="?page={{ page_obj.next_page_number }}">next</a>
-                            <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
-                        {% endif %}
-                    </span>
-                </div>
         </div>
     </div>
 

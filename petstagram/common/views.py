@@ -1,12 +1,10 @@
-
-from django.http import request
 from django.shortcuts import render, redirect, resolve_url
 from django.views.generic import ListView
-
 from petstagram.common.models import PhotoLike
 from petstagram.photos.models import Photo
 from petstagram.common.forms import CommentForm
 from pyperclip import copy
+
 
 
 class HomePageView(ListView):
@@ -15,16 +13,36 @@ class HomePageView(ListView):
     context_object_name = 'all_photos'
     paginate_by = 1
 
+    def request_pet_name(self, get_name):
+        if get_name:
+            return f'&pet_name={get_name}'
+
+
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
         context['comment_form'] = CommentForm()
+        pet_name_pattern = self.request.GET.get("pet_name", None)
+        if pet_name_pattern:
+            context['request_pet_name'] = self.request_pet_name(pet_name_pattern)
+        else:
+            context['request_pet_name'] = ""
+
         return context
 
     def get_queryset(self):
         queryset = Photo.objects.all()
         pet_name_pattern = self.request.GET.get("pet_name", None)
+
         if pet_name_pattern:
-            queryset = queryset.filter(tagged_pets__name__icontains=pet_name_pattern)
+            self.request.session["pet_name"] = pet_name_pattern
+
+        else:
+            self.request.session.pop("pet_name", None)
+
+        pet_name_session = self.request.session.get("pet_name")
+
+        if pet_name_pattern:
+            queryset = queryset.filter(tagged_pets__name__icontains=pet_name_session)
         return queryset
 
 
