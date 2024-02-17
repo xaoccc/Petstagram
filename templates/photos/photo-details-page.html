@@ -57,16 +57,11 @@
                     </div>
                 </div>
 
-                <!-- Start Pet Photo -->
-                <div class="imgBx" id="place the id of the photo here">
-                    <!-- Pet Photo -->
+                <div class="imgBx" id="photo{{ photo.id }}">
                     <img src="{{ photo.photo.url }}" alt="post" class="cover">
                 </div>
-                <!-- End Pet Photo -->
 
                 <div class="bottom">
-
-                    <!-- Start Like and Share Buttons Section -->
                     <div class="actionBtns">
                         <div class="left">
 
@@ -115,17 +110,12 @@
                                         <div class="profile_img">
                                             <div class="image">
                                                 <!-- User Profile Image -->
-                                                <img src="{% static '/images/person.png' %}" alt="img8">
+                                                <a href="{% url 'profile-show' pk=user.id %}"><img src="{% static '/images/person.png' %}" alt="img8"></a>
                                             </div>
                                         </div>
                                     </div>
                                     <p>
-                                        <!-- Link to User Profile Details Page-->
-                                        <!-- User First and/or Last Name or username-->
-                                        <a href="#"></a>
-                                        <!-- User Comment -->
                                         {{ comment.text }}
-
                                     </p>
                                 </div>
                                 <span>{{ comment.date_time_of_publication }}</span>
@@ -133,7 +123,6 @@
                         </div>
                     </div>
                     {% endfor %}
-                    <!-- End Comments Section -->
                 </div>
 
                 <!-- Start Add Comments Section -->
