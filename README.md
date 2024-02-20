@@ -70,21 +70,9 @@ Steps in creating a Django project:
 * When model is called in the form, this model is not necessary to be called again in the view
 * Use form.as_div in the template whenever possible. Using forms.py it is much easier
 * Follow SOLID!
-* Working with model instance fields inside DeleteView/EditView:
- ```    
-def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        model_instance = self.get_object()
-        context['form'].fields['FIELD_NAME'].widget.attrs['ATTRIBUTE_NAME'] = VALUE
-```
-* Customizing a form in UpdateView and other CBVs:
-```    
- def get_form(self, form_class=None):
-     form = super().get_form(form_class)
-     form.fields['FIELD_NAME'].ATTRIBUTE_NAME = 'VALUE'
-     return form
-```
-* CBVs attributes:
+
+
+### CBVs attributes:
 * DetailView:  
 **model: required**   
 template_name:   
@@ -112,3 +100,65 @@ template_
 success_url:  
 slug_field and slug_url_kwarg:  
 
+### Useful CBV methods:  
+* get_form()  
+Customizing a form in UpdateView and other CBVs:  
+```    
+ def get_form(self, form_class=None):
+     form = super().get_form(form_class)
+     form.fields['FIELD_NAME'].ATTRIBUTE_NAME = 'VALUE'
+     return form
+```
+* form_valid()  
+Used often when we need to add field to the form instance in the view:  
+```    
+ def form_valid(self, form):
+     form.instance.owner = self.request.user
+     return super().form_valid(form)
+```
+* get_context_data()  
+Working with model instance fields inside DeleteView/EditView:
+ ```    
+def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        model_instance = self.get_object()
+        context['form'].fields['FIELD_NAME'].widget.attrs['ATTRIBUTE_NAME'] = VALUE
+```
+* get_object()
+If we need a specific instance of the model in the view, we can override get_object()
+```
+ def get_object(self, queryset=None):
+     return Pet.objects.get(slug=self.kwargs['pet_slug'])
+```
+* get_queryset()
+If we need to filter the current queryset (usually used when searching or filtering on some criteria):
+```
+ def get_queryset(self):
+     queryset = MyViewModel.objects.filter(FILTER CRITERIA)
+     return queryset
+```
+We can use even several querysets:  
+```
+def get_queryset(self):
+  queryset1 = Model1.objects.all()
+  queryset2 = Model2.objects.filter(some_field=some_value)
+  return queryset1, queryset2
+
+def get_context_data(self, **kwargs):
+  context = super().get_context_data(**kwargs)
+  queryset1, queryset2 = self.get_queryset()
+  context['queryset1'] = queryset1
+  context['queryset2'] = queryset2
+  return context
+```
+
+* get_form_kwargs()
+Often used in the DeleteView to get the instance of the object and pass it to the form,
+If the delete view requires a form.   
+Usually it goes with a get_form() method to apply readonly to all fields  
+```
+ def get_form_kwargs(self):
+     kwargs = super().get_form_kwargs()
+     kwargs['instance'] = self.object
+     return kwargs
+```
