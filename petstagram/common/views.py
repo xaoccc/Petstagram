@@ -6,7 +6,6 @@ from petstagram.common.forms import CommentForm
 from pyperclip import copy
 
 
-
 class HomePageView(ListView):
     model = Photo
     template_name = 'common/home-page.html'
@@ -16,7 +15,6 @@ class HomePageView(ListView):
     def request_pet_name(self, get_name):
         if get_name:
             return f'&pet_name={get_name}'
-
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -45,9 +43,6 @@ class HomePageView(ListView):
             queryset = queryset.filter(tagged_pets__name__icontains=pet_name_session)
         return queryset
 
-
-
-
 def error_404(request):
     return render(request, '404.html')
 
@@ -62,8 +57,8 @@ def like_functionality(request, photo_id):
         like = PhotoLike(to_photo=photo)
         like.save()
 
-
     return redirect(request.META['HTTP_REFERER'] + f'#{photo_id}')
+
 
 def copy_link_to_clipboard(request, photo_id):
     copy(request.META['HTTP_HOST'] + resolve_url('photo-details', photo_id))
