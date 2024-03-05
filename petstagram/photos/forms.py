@@ -1,6 +1,6 @@
 from django import forms
 from petstagram.photos.models import Photo, Pet
-from petstagram.mixins.forms_mixins import ReadOnlyFieldsMixin, DisabledFieldsMixin
+
 
 class PhotoBaseForm(forms.ModelForm):
     class Meta:
