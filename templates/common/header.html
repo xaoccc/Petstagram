@@ -39,7 +39,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{% url 'profile-show' pk=1 %}">
+                            <a href="{% url 'profile-show' pk=request.user.pk %}">
                                 <i>Profile</i>
                             </a>
                         </li>

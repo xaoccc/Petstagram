@@ -15,7 +15,7 @@
                     <div class="userDetails">
 
                         <!-- !!!Link to User Profile Details Page!!! -->
-                        <a href="{% url 'profile-show' pk=user.id %}">
+                        <a href="{% url 'profile-show' pk=request.user.id %}">
                             <div class="profilepic">
                                 <div class="profile_img">
                                     <div class="image">
@@ -26,9 +26,9 @@
                         </a>
                         <h3>
 
-                            <a href="{% url 'profile-show' pk=user.id %}">
-                                {% if user.is_authenticated %}
-                                    {{ user.username }}
+                            <a href="{% url 'profile-show' pk=request.user.id %}">
+                                {% if request.user.is_authenticated %}
+                                    {{ request.user.email }}
                                 {% else %}
                                     User
                                 {% endif %}
@@ -110,7 +110,7 @@
                                         <div class="profile_img">
                                             <div class="image">
                                                 <!-- User Profile Image -->
-                                                <a href="{% url 'profile-show' pk=user.id %}"><img src="{% static '/images/person.png' %}" alt="img8"></a>
+                                                <a href="{% url 'profile-show' pk=request.user.id %}"><img src="{% static '/images/person.png' %}" alt="img8"></a>
                                             </div>
                                         </div>
                                     </div>

@@ -5,7 +5,7 @@
 <main>
     <div class="edit-delete edit-photo">
         <h2>Delete pet</h2>
-        <form method="post" action="{% url 'pet-delete' username=user.username pet_slug=pet.slug %}">
+        <form method="post" action="{% url 'pet-delete' pk=request.user.pk pet_slug=pet.slug %}">
             {% csrf_token %}
             {{ form.as_p }}
             <button class="delete-btn" type="submit">Delete</button>

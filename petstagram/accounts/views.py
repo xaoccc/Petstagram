@@ -1,25 +1,22 @@
 from django import forms
+from django.contrib.auth import get_user_model
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
-from django.contrib.auth.models import User
+
 from django.contrib.auth.views import LoginView
-from django.shortcuts import render
+
 from django.urls import reverse_lazy
 from django.views.generic import DetailView, ListView, CreateView, UpdateView, DeleteView
+
+from petstagram.accounts.forms import CustomUserCreationForm, ProfileEditForm
+from petstagram.accounts.models import Profile
 from petstagram.pets.models import Pet
 from petstagram.photos.models import Photo
 from django.contrib.auth.views import LogoutView
 
-class CustomUserCreationForm(UserCreationForm):
-    email = forms.EmailField(label="Email", required=True)
+UserModel = get_user_model()
 
-    class Meta(UserCreationForm.Meta):
-        model = User
-        fields = ['username', 'email', 'password1', 'password2']
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.fields['username'].help_text = ''
-        self.fields['password1'].help_text = ''
-        self.fields['password2'].help_text = ''
+
+
 
 class CustomLogoutView(LogoutView):
     def __init__(self, *args, **kwargs):
@@ -27,18 +24,19 @@ class CustomLogoutView(LogoutView):
         self.template_name = 'common/home-page.html'
 
 class CreateProfileView(CreateView):
-    model = User
+    model = UserModel
     form_class = CustomUserCreationForm
     template_name = 'accounts/register-page.html'
     success_url = reverse_lazy('home-page')
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['form'].fields['username'].widget.attrs['placeholder'] = 'Username'
         context['form'].fields['email'].widget.attrs['placeholder'] = 'Email'
         context['form'].fields['password1'].widget.attrs['placeholder'] = 'Password'
         context['form'].fields['password2'].widget.attrs['placeholder'] = 'Repeat Password'
         return context
+
+
 
 
 class LoginProfileView(LoginView):
@@ -48,7 +46,7 @@ class LoginProfileView(LoginView):
 
 
 class DetailProfileView(DetailView, ListView):
-    model = User
+    model = Profile
     template_name = 'accounts/profile-details-page.html'
     context_object_name = 'owner'
     query_pk_and_slug = True
@@ -56,7 +54,7 @@ class DetailProfileView(DetailView, ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        user = self.get_object()
+        user = self.request.user
         pets = Pet.objects.filter(owner=user)
         photos = Photo.objects.filter(tagged_pets__in=pets)
         context['own_pets'] = pets
@@ -66,18 +64,19 @@ class DetailProfileView(DetailView, ListView):
         return context
 
 class EditProfileView(UpdateView):
-    model = User
+    model = Profile
     template_name = 'accounts/profile-edit-page.html'
-    fields = ['first_name', 'last_name', 'username', 'email']
-    success_url = reverse_lazy('home-page')
+    form_class = ProfileEditForm
 
-    def get_form(self, form_class=None):
-        form = super().get_form(form_class)
-        form.fields['username'].help_text = ''
-        return form
+    def get_object(self, queryset=None):
+        return self.request.user.profile
+
+    def get_success_url(self):
+        return reverse_lazy('profile-show', kwargs={'pk': self.object.pk})
+
 
 class DeleteProfileView(DeleteView):
-    model = User
+    model = UserModel
     template_name = 'accounts/profile-delete-page.html'
     success_url = reverse_lazy('home-page')
 

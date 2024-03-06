@@ -1,5 +1,7 @@
 from django.shortcuts import render, redirect, resolve_url
 from django.views.generic import ListView
+
+from petstagram.accounts.models import Profile
 from petstagram.common.models import PhotoLike
 from petstagram.photos.models import Photo
 from petstagram.common.forms import CommentForm
@@ -19,6 +21,8 @@ class HomePageView(ListView):
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
         context['comment_form'] = CommentForm()
+        if Profile.objects.filter(pk=self.request.user.pk):
+            context['profile'] = Profile.objects.get(pk=self.request.user.pk)
         pet_name_pattern = self.request.GET.get("pet_name", None)
         if pet_name_pattern:
             context['request_pet_name'] = self.request_pet_name(pet_name_pattern)
