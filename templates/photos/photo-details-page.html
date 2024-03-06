@@ -11,47 +11,53 @@
             <div class="card">
                 <div class="top">
 
-                    <!-- Start User Details and Image Location Section -->
+                    <!-- Start Pet Photo Owner Details and Image Location Section -->
                     <div class="userDetails">
 
-                        <!-- !!!Link to User Profile Details Page!!! -->
-                        <a href="{% url 'profile-show' pk=request.user.id %}">
-                            <div class="profilepic">
-                                <div class="profile_img">
-                                    <div class="image">
-                                        <img src="{% static '/images/person.png' %}" alt="img8">
+                        <!-- !!!Link to Pet Photo Owner Profile Details Page!!! -->
+                        <!-- If a photo is not connected to a pet/user profile, we cannot access this data -->
+                        {% if pet_photo.tagged_pets.first %}
+                            <a href="{% url 'profile-show' pk=object.tagged_pets.first.owner.id %}">
+                                <div class="profilepic">
+                                    <div class="profile_img">
+                                        <div class="image">
+                                            <img src="{{ object.tagged_pets.first.owner.profile.profile_picture }}" alt="img8">
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        </a>
-                        <h3>
-
-                            <a href="{% url 'profile-show' pk=request.user.id %}">
-                                {% if request.user.is_authenticated %}
-                                    {{ request.user.email }}
-                                {% else %}
-                                    User
-                                {% endif %}
                             </a>
+                        {% endif %}
+
+                        <h3>
+                            {% if pet_photo.tagged_pets.first %}
+                                <a href="{% url 'profile-show' pk=object.tagged_pets.first.owner.id %}">
+                                    {% if object.tagged_pets.first.owner.email %}
+                                       {{ object.tagged_pets.first.owner.email }}
+                                    {% endif %}
+                                </a>
+                            {% endif %}
                             <br>
 
                             {% if photo.location %}
                                 <span>{{ photo.location }}</span>
                             {% endif %}
 
-                            <div class="edit-delete-btns">
+                            <!-- !!! Only the owner of the pet has access to pet edit buttons !!! -->
+                            {% if object.tagged_pets.first.owner == request.user %}
+                                <div class="edit-delete-btns">
 
-                                <!-- Link to Edit Pet Photo Page -->
-                                <a href="{% url 'photo-edit' photo.pk %}">
-                                    <img class="edit-img" src="{% static '/images/edit-pen-icon-6.jpg' %}"
-                                         alt="edit button">
-                                </a>
+                                    <!-- Link to Edit Pet Photo Page -->
+                                    <a href="{% url 'photo-edit' photo.pk %}">
+                                        <img class="edit-img" src="{% static '/images/edit-pen-icon-6.jpg' %}"
+                                             alt="edit button">
+                                    </a>
 
-                                <!-- Link to Delete Pet Photo Page -->
-                                <a href="{% url 'photo-delete' pk=photo.pk %}">
-                                    <img class="bin-img" src="{% static 'images/icon-remove-22.jpg' %}" alt="bin button">
-                                </a>
-                            </div>
+                                    <!-- Link to Delete Pet Photo Page -->
+                                    <a href="{% url 'photo-delete' pk=photo.pk %}">
+                                        <img class="bin-img" src="{% static 'images/icon-remove-22.jpg' %}" alt="bin button">
+                                    </a>
+                                </div>
+                            {% endif %}
 
                         </h3>
                     </div>
@@ -83,7 +89,7 @@
                     <p class="likes">{{ photo.photolike_set.count }} likes</p>
 
                     {% for pet in photo.tagged_pets.all %}
-                        <a href="{% url 'pet-show' username=pet.owner.username pet_slug=pet.slug %}">
+                        <a href="{% url 'pet-show' pk=request.user.pk pet_slug=pet.slug %}">
                             <p class="message">
                                 <b>{{ pet.name }}</b>
                             </p>
@@ -110,7 +116,9 @@
                                         <div class="profile_img">
                                             <div class="image">
                                                 <!-- User Profile Image -->
-                                                <a href="{% url 'profile-show' pk=request.user.id %}"><img src="{% static '/images/person.png' %}" alt="img8"></a>
+                                                <a href="{% url 'profile-show' pk=request.user.id %}">
+                                                    <img src="{{ request.user.profile.profile_picture }}" alt="img8">
+                                                </a>
                                             </div>
                                         </div>
                                     </div>

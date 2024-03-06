@@ -1,6 +1,8 @@
+from django import forms
 from django.shortcuts import render, redirect
 from django.views.generic import CreateView, DetailView, UpdateView
 from petstagram.common.forms import CommentForm
+from petstagram.pets.models import Pet
 from petstagram.photos.models import Photo
 from petstagram.photos.forms import PhotoCreateForm, PhotoEditForm
 
@@ -16,6 +18,14 @@ class AddPhotoView(CreateView):
 
     def get_success_url(self):
         return '/'
+
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs['user'] = self.request.user
+        return kwargs
+
+
+
 
 class PhotoDetailsView(DetailView):
     model = Photo

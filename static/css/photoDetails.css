@@ -67,18 +67,3 @@
     margin-left: 5px;
 }
 
-#id_tagged_pets {
-    height: unset;
-    margin-left: 5em;
-}
-
-#id_tagged_pets input {
-    max-width: 5rem;
-    position: relative;
-    top: 0.5rem;
-}
-
-.edit-photo-form {
-    display: flex;
-    flex-direction: column;
-}

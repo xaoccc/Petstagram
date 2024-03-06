@@ -6,10 +6,17 @@
         <div class="profile-data">
           <div class="profile_img">
             <div class="image">
-              <img src="{{ object.profile_picture }}" alt="img8" />
+              {% if object.profile_picture %}
+                <img src="{{ object.profile_picture }}" alt="img8" />
+              {% else %}
+                <img src="{% static 'images/user.png' %}" alt="img8" />
+              {% endif %}
             </div>
           </div>
           <div class="personal">
+
+            <!-- Start IF the viewer is the owner of the profile -->
+            {% if request.user.pk == object.user.pk %}
             <div class="edit">
 
               <a href="{% url 'profile-edit' pk=request.user.pk %}">
@@ -28,8 +35,10 @@
                   alt="bin button"
                 />
               </a>
-              <!-- End IF the viewer is the owner of the profile -->
+
             </div>
+            {% endif %}
+            <!-- End IF the viewer is the owner of the profile -->
             <div class="data">
               <span>{{ photos_count }}</span>
               <p>photos</p>
@@ -37,12 +46,24 @@
               <p>pets</p>
 
               <!-- Total Number of Likes for the User -->
-              <span>436</span>
+              <span>{{ photo_likes }}</span>
               <p>likes</p>
             </div>
-            <h3 class="names">{{ object.first_name }} {{ object.last_name }}</h3>
-            <p class="email">{{ object.date_of_birth }}</p>
+
+            <h3 class="names">
+              {% if object.first_name %}
+                <span>{{ object.first_name }} </span>
+              {% endif %}
+              {% if object.last_name %}
+                <span>{{ object.last_name }} </span>
+              {% endif %}
+            </h3>
+            {% if object.date_of_birth %}
+              <p class="email">{{ object.date_of_birth }}</p>
+            {% endif %}
             <p class="email">{{ object.user.email }}</p>
+
+
           </div>
         </div>
         <!-- End Profile Personal Data Section -->
@@ -52,7 +73,8 @@
         <div class="pets">
           <div class="statuses">
             {% for pet in own_pets %}
-            <a href="{% url 'pet-show' pk=request.user.pk pet_slug=pet.slug %}">
+            <!-- Link to the pet profile for each pet. The pk is the pk of the owner, not the pk of the current user -->
+            <a href="{% url 'pet-show' pk=pet.owner.pk pet_slug=pet.slug %}">
               <div class="head-pet">
                 <div class="status">
                   <div class="image">
@@ -77,9 +99,6 @@
           {% empty %}
             <img class="no-posts" src="{% static '/images/no_posts.png' %}"  alt="no posts"/>
           {% endfor %}
-
-
-
       </div>
     </div>
 

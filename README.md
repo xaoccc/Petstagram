@@ -8,6 +8,13 @@ This is a social media app for pet lovers. Here you can:
 - Move easily between pages
 - Search pet by name
 
+## Updated to v.1.01:
+- Upgraded user management by added a custom User model and a Profile model linked to the user model
+- The logged-in user now cannot add, edit and delete other profiles, pets or photos!
+- TODO: 
+- Repair the likes counter so each pet photo can have multiple likes
+- Add more validators
+
 
 Steps in creating a Django project:
 1. Create the apps using the command $ python manage.py startapp app_name. For each app do this:
@@ -52,6 +59,7 @@ Steps in creating a Django project:
          raise ValidationError('error_message')
    ```
    * Create the database (if not created)
+   * ADD CUSTOM USER MODEL BEFORE ANY MIGRATIONS
    * Make migrations
    * Migrate
 

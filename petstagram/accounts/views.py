@@ -3,12 +3,14 @@ from django.contrib.auth import get_user_model
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 
 from django.contrib.auth.views import LoginView
+from django.db.models import Sum
 
 from django.urls import reverse_lazy
 from django.views.generic import DetailView, ListView, CreateView, UpdateView, DeleteView
 
 from petstagram.accounts.forms import CustomUserCreationForm, ProfileEditForm
 from petstagram.accounts.models import Profile
+from petstagram.common.models import PhotoLike
 from petstagram.pets.models import Pet
 from petstagram.photos.models import Photo
 from django.contrib.auth.views import LogoutView
@@ -50,17 +52,18 @@ class DetailProfileView(DetailView, ListView):
     template_name = 'accounts/profile-details-page.html'
     context_object_name = 'owner'
     query_pk_and_slug = True
-    object_list = Pet.objects.filter(pk=2)
+    object_list = Pet.objects.all()
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        user = self.request.user
-        pets = Pet.objects.filter(owner=user)
-        photos = Photo.objects.filter(tagged_pets__in=pets)
+        pets = Pet.objects.filter(owner=self.object.user)
+        photos = Photo.objects.filter(tagged_pets__in=pets).distinct('id')
         context['own_pets'] = pets
         context['pets_count'] = pets.count()
         context['photos'] = photos
         context['photos_count'] = photos.count()
+        context['photo_likes'] = PhotoLike.objects.filter(to_photo__in=photos).count()
+
         return context
 
 class EditProfileView(UpdateView):

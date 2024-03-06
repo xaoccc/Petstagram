@@ -162,6 +162,11 @@ label {
 }
 /* edit end */
 
-#id_tagged_pets {
-    height: 82px;
+#id_tagged_pets > div > label > input {
+    margin: 0 0 0 6em;
+    padding: 0;
+    max-width: 4em;
+    max-height: 1.2em;
+    position: relative;
+    top: 2px;
 }

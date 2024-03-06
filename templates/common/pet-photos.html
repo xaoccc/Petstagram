@@ -3,22 +3,35 @@
     {% for pet_photo in all_photos %}
     <div class="card">
         <div class="top">
+
+            <!-- Only if the photo is connected to a pet and a user, we can see the pet/user profiles -->
+            <!-- If a pet is not tagged, we cannot see a pet profile -->
+            {% if pet_photo.tagged_pets.first %}
             <div class="userDetails">
-                <a href="{% url 'profile-show' pk=1 %}">
+                <!--Show the profile of the pet owner-->
+                <a href="{% url 'profile-show' pk=pet_photo.tagged_pets.first.owner.pk %}">
                     <div class="profilepic">
                         <div class="profile_img">
+                            <!--Show the profile picture of the pet owner-->
+
                             <div class="image">
-                                <img src="{% static '/images/person.png' %}" alt="img8">
+                                {% if pet_photo.tagged_pets.first.owner.profile.profile_picture %}
+                                    <img src="{{ pet_photo.tagged_pets.first.owner.profile.profile_picture }}" alt="img8">
+                                {% else %}
+                                    <img src="{% static '/images/person.png' %}" alt="img8">
+                                {% endif %}
                             </div>
                         </div>
                     </div>
                 </a>
                 <h3>
-                    <a href="{% url 'profile-show' pk=request.user.pk %}">
-                        {% if request.user.is_authenticated %}
-                            {{ profile.first_name }} {{ profile.last_name }}
-                        {% else %}
-                            Petstagram User
+                    <!--Show the profile of the pet owner-->
+                    <a href="{% url 'profile-show' pk=pet_photo.tagged_pets.first.owner.pk %}">
+                        {% if pet_photo.tagged_pets.first.owner.profile.first_name  %}
+                            <span>{{ pet_photo.tagged_pets.first.owner.profile.first_name }} </span>
+                        {% endif %}
+                        {% if pet_photo.tagged_pets.first.owner.profile.last_name  %}
+                            <span>{{ pet_photo.tagged_pets.first.owner.profile.last_name }}</span>
                         {% endif %}
                     </a>
                     <br>
@@ -27,6 +40,8 @@
                     {% endif %}
                 </h3>
             </div>
+            {% endif %}
+
         </div>
         <div class="imgBx" id="{{ pet_photo.pk }}">
             <img src="{{ pet_photo.photo.url }}" alt="post" class="cover">
@@ -49,13 +64,12 @@
                     </a>
                 </div>
             </div>
-            <a href="#">
-                <p class="likes">{{ pet_photo.photolike_set.count }} likes</p>
-            </a>
+            <p class="likes">{{ pet_photo.photolike_set.count }} likes</p>
+
 
             {% for pet_obj in pet_photo.tagged_pets.all %}
 
-                <a href="{% url 'pet-show' pk=request.user.pk pet_slug=pet_obj.slug %}">
+                <a href="{% url 'pet-show' pk=pet_obj.owner.pk pet_slug=pet_obj.slug %}">
                     <p class="message">
                         <b>{{ pet_obj.name }}</b>
                     </p>

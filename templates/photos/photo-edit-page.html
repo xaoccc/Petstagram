@@ -5,9 +5,9 @@
 <main>
     <div class="edit-delete edit-photo">
         <h2>Edit photo</h2>
-        <form action="" method="post" class="edit-photo-form">
+        <form action="{% url 'photo-edit' pk=object.pk %}" method="post" >
             {% csrf_token %}
-            {{ form.as_div }}
+            {{ form.as_p }}
             <button class="edit-btn" type="submit">Edit Photo</button>
         </form>
     </div>

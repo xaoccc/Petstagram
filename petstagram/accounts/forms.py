@@ -32,11 +32,11 @@ class ProfileEditForm(forms.ModelForm):
     class Meta:
         model = Profile
         fields = ['first_name', 'last_name', 'date_of_birth', 'profile_picture']
-
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.fields['first_name'].widget.attrs['placeholder'] = 'First Name'
-        self.fields['last_name'].widget.attrs['placeholder'] = 'Last Name'
-        self.fields['date_of_birth'].widget.attrs['placeholder'] = 'yyyy-mm-dd'
-        self.fields['profile_picture'].widget.attrs['placeholder'] = 'Profile Picture URL'
+        widgets = {
+            'first_name': forms.TextInput(attrs={'placeholder': 'First Name'}),
+            'last_name': forms.TextInput(attrs={'placeholder': 'Last Name'}),
+            'profile_picture': forms.TextInput(attrs={'placeholder': 'Profile Picture URL'}),
+            'date_of_birth': forms.DateInput(
+                attrs={'type': 'date', 'placeholder': 'mm/dd/yyyy'}),
+        }
 
