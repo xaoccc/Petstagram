@@ -1,7 +1,8 @@
+from django.contrib.auth import get_user_model
 from django.db import models
 
 from petstagram.photos.models import Photo
-
+UserModel = get_user_model()
 
 class PhotoReact(models.Model):
     to_photo = models.ForeignKey(Photo, on_delete=models.CASCADE)
@@ -19,4 +20,5 @@ class PhotoComment(PhotoReact):
         ordering = ['date_time_of_publication']
 
 class PhotoLike(PhotoReact):
-    pass
+    user_liked = models.ForeignKey(UserModel, on_delete=models.CASCADE)
+

@@ -50,13 +50,16 @@
             <!-- like and share buttons -->
             <div class="actionBtns">
                 <div class="left">
-                        <span class="heart">
+
+                     <span class="heart">
                             <a href="{% url 'like' pet_photo.id %}">
-                                {% if pet_photo.photolike_set.all %}
+
+                                {% if this_user_this_photo_photo_likes %}
                                     <i class="fa-solid fa-heart" style="color: #ed4040;"></i>
                                 {% else %}
                                     <i class="fa-regular fa-heart"></i>
                                 {% endif %}
+
                             </a>
                         </span>
                     <a href="{% url 'share' pet_photo.id %}">
@@ -64,6 +67,7 @@
                     </a>
                 </div>
             </div>
+            <p>{{ liked_object }}</p>
             <p class="likes">{{ pet_photo.photolike_set.count }} likes</p>
 
 

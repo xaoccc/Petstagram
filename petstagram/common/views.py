@@ -24,6 +24,10 @@ class HomePageView(ListView):
         if Profile.objects.filter(pk=self.request.user.pk):
             context['profile'] = Profile.objects.get(pk=self.request.user.pk)
         pet_name_pattern = self.request.GET.get("pet_name", None)
+        context['this_user_this_photo_photo_likes'] = PhotoLike.objects.filter(
+            user_liked_id=self.request.user.id,
+            to_photo_id=self.request.GET.get("pet_photo_id", None)
+        )
         if pet_name_pattern:
             context['request_pet_name'] = self.request_pet_name(pet_name_pattern)
         else:
@@ -53,12 +57,13 @@ def error_404(request):
 
 def like_functionality(request, photo_id):
     photo = Photo.objects.get(id=photo_id)
-    liked_object = PhotoLike.objects.filter(to_photo_id=photo_id)
+    user = request.user
+    liked_object = PhotoLike.objects.filter(to_photo_id=photo_id, user_liked_id=user.id)
 
     if liked_object:
         liked_object.delete()
     else:
-        like = PhotoLike(to_photo=photo)
+        like = PhotoLike(to_photo=photo, user_liked_id=user.id)
         like.save()
 
     return redirect(request.META['HTTP_REFERER'] + f'#{photo_id}')
