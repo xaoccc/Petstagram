@@ -5,12 +5,14 @@
 <main>
     <div class="container">
         <div class="col-9">
-            <form class="searchbar" method="get" action="{% url 'home-page' %}">
-                <input type="text" name="pet_name" placeholder="Search pet by name">
-                <button><img src="{% static '/images/search.png' %}" height="18" alt="img2"></button>
-            </form>
+
             {% if user.is_authenticated %}
+                <form class="searchbar" method="get" action="{% url 'home-page' %}">
+                    <input type="text" name="pet_name" placeholder="Search pet by name">
+                    <button><img src="{% static '/images/search.png' %}" height="18" alt="img2"></button>
+                </form>
                 {% include 'common/pet-photos.html' %}
+
                 {% if page_obj.has_previous and page_obj.has_next %}
                     <a class="step-links" href="?page=1{{ request_pet_name }}">first</a>
                     <a href="?page={{ page_obj.previous_page_number }}{{ request_pet_name }}">
