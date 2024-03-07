@@ -1,9 +1,11 @@
 from django.contrib.auth.base_user import AbstractBaseUser
 from django.contrib.auth.models import PermissionsMixin
+from django.core.exceptions import ValidationError
+from django.core.validators import MinLengthValidator
 from django.db import models
-
-
 from django.contrib.auth.models import BaseUserManager
+from petstagram.accounts.validators import name_validator, date_of_birth_validator
+
 
 class CustomUserManager(BaseUserManager):
     def create_user(self, email, password=None, **extra_fields):
@@ -37,11 +39,35 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = []
 
+
+
+
+
 class Profile(models.Model):
     user = models.OneToOneField(CustomUser, on_delete=models.CASCADE, primary_key=True)
-    first_name = models.CharField(max_length=30, blank=True, null=True)
-    last_name = models.CharField(max_length=30, blank=True, null=True)
-    date_of_birth = models.DateField(blank=True, null=True)
+    first_name = models.CharField(
+        max_length=30,
+        blank=True,
+        null=True,
+        validators=(
+            MinLengthValidator(2, 'First name must be at least two characters long'),
+            name_validator
+        )
+    )
+    last_name = models.CharField(
+        max_length=30,
+        blank=True,
+        null=True,
+        validators=(
+            MinLengthValidator(2, 'Last name must be at least two characters long'),
+            name_validator
+        )
+    )
+    date_of_birth = models.DateField(
+        blank=True,
+        null=True,
+        validators=(date_of_birth_validator,)
+    )
     profile_picture = models.URLField(blank=True, null=True)
 
 
