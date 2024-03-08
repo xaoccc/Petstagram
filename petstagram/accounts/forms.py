@@ -19,6 +19,12 @@ class CustomUserCreationForm(UserCreationForm):
         self.fields['password1'].help_text = ''
         self.fields['password2'].help_text = ''
 
+
+    def save(self, *args, **kwargs):
+        self.user = super().save(*args, **kwargs)
+        return self.user
+
+
 class ProfileEditForm(forms.ModelForm):
 
     class Meta:

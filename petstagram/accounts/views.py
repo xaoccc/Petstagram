@@ -1,4 +1,4 @@
-from django.contrib.auth import get_user_model
+from django.contrib.auth import get_user_model, login
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from django.contrib.auth.views import LoginView
 from django.urls import reverse_lazy
@@ -9,6 +9,7 @@ from petstagram.common.models import PhotoLike
 from petstagram.pets.models import Pet
 from petstagram.photos.models import Photo
 from django.contrib.auth.views import LogoutView
+
 
 UserModel = get_user_model()
 
@@ -23,7 +24,6 @@ class LogoutProfileView(LogoutView):
 
 
 class CreateProfileView(CreateView):
-    model = UserModel
     form_class = CustomUserCreationForm
     template_name = 'accounts/register-page.html'
     success_url = reverse_lazy('home-page')
@@ -34,6 +34,12 @@ class CreateProfileView(CreateView):
         context['form'].fields['password1'].widget.attrs['placeholder'] = 'Password'
         context['form'].fields['password2'].widget.attrs['placeholder'] = 'Repeat Password'
         return context
+
+    def form_valid(self, form):
+        result = super().form_valid(form)
+        login(self.request, form.user)
+
+        return result
 
 
 
