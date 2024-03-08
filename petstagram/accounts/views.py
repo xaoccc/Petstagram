@@ -1,5 +1,6 @@
 from django.contrib.auth import get_user_model, login
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.views import LoginView
 from django.urls import reverse_lazy
 from django.views.generic import DetailView, ListView, CreateView, UpdateView, DeleteView
@@ -45,7 +46,7 @@ class CreateProfileView(CreateView):
 
 
 
-class DetailProfileView(DetailView, ListView):
+class DetailProfileView(LoginRequiredMixin, DetailView, ListView):
     model = Profile
     template_name = 'accounts/profile-details-page.html'
     context_object_name = 'owner'
@@ -64,7 +65,7 @@ class DetailProfileView(DetailView, ListView):
 
         return context
 
-class EditProfileView(UpdateView):
+class EditProfileView(LoginRequiredMixin, UpdateView):
     model = Profile
     template_name = 'accounts/profile-edit-page.html'
     form_class = ProfileEditForm
@@ -76,7 +77,7 @@ class EditProfileView(UpdateView):
         return reverse_lazy('profile-show', kwargs={'pk': self.object.pk})
 
 
-class DeleteProfileView(DeleteView):
+class DeleteProfileView(LoginRequiredMixin, DeleteView):
     model = UserModel
     template_name = 'accounts/profile-delete-page.html'
     success_url = reverse_lazy('home-page')

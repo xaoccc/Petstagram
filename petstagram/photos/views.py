@@ -1,4 +1,5 @@
 from django import forms
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render, redirect
 from django.views.generic import CreateView, DetailView, UpdateView
 from petstagram.common.forms import CommentForm
@@ -7,7 +8,7 @@ from petstagram.photos.models import Photo
 from petstagram.photos.forms import PhotoCreateForm, PhotoEditForm
 
 
-class AddPhotoView(CreateView):
+class AddPhotoView(LoginRequiredMixin, CreateView):
     model = Photo
     template_name = 'photos/photo-add-page.html'
     form_class = PhotoCreateForm
@@ -27,7 +28,7 @@ class AddPhotoView(CreateView):
 
 
 
-class PhotoDetailsView(DetailView):
+class PhotoDetailsView(LoginRequiredMixin, DetailView):
     model = Photo
     template_name = 'photos/photo-details-page.html'
 
@@ -38,7 +39,7 @@ class PhotoDetailsView(DetailView):
         context['comments'] = self.object.photocomment_set.all()
         return context
 
-class PhotoEditView(UpdateView):
+class PhotoEditView(LoginRequiredMixin, UpdateView):
     model = Photo
     template_name = 'photos/photo-edit-page.html'
     form_class = PhotoEditForm

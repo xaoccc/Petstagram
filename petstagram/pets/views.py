@@ -22,7 +22,7 @@ class AddPetView(CreateView, LoginRequiredMixin):
         return super().form_valid(form)
 
 
-class DetailsPetView(GetPetBySlugAndOwnerMixin, DetailView):
+class DetailsPetView(GetPetBySlugAndOwnerMixin, LoginRequiredMixin, DetailView):
     model = Pet
     context_object_name = 'pet'
     slug_url_kwarg = 'pet_slug'
@@ -35,7 +35,7 @@ class DetailsPetView(GetPetBySlugAndOwnerMixin, DetailView):
         return context
 
 
-class EditPetView(GetPetBySlugAndOwnerMixin, UpdateView):
+class EditPetView(GetPetBySlugAndOwnerMixin, LoginRequiredMixin, UpdateView):
     model = Pet
     template_name = 'pets/pet-edit-page.html'
     form_class = PetEditForm
@@ -44,7 +44,7 @@ class EditPetView(GetPetBySlugAndOwnerMixin, UpdateView):
     def get_success_url(self):
         return reverse('pet-show', kwargs={"pk": self.request.user.pk, "pet_slug": self.object.slug})
 
-class DeletePetView(GetPetBySlugAndOwnerMixin, DeleteView):
+class DeletePetView(GetPetBySlugAndOwnerMixin, LoginRequiredMixin, DeleteView):
     model = Pet
     template_name = 'pets/pet-delete-page.html'
     context_object_name = 'pet'

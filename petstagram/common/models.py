@@ -15,10 +15,11 @@ class PhotoReact(models.Model):
 class PhotoComment(PhotoReact):
     text = models.TextField(max_length=300)
     date_time_of_publication = models.DateTimeField(auto_now_add=True)
+    user_commented = models.ForeignKey(UserModel, on_delete=models.RESTRICT)
 
     class Meta:
         ordering = ['date_time_of_publication']
 
 class PhotoLike(PhotoReact):
-    user_liked = models.ForeignKey(UserModel, on_delete=models.CASCADE)
+    user_liked = models.ForeignKey(UserModel, on_delete=models.RESTRICT)
 
