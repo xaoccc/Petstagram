@@ -170,3 +170,17 @@ Usually it goes with a get_form() method to apply readonly to all fields
      kwargs['instance'] = self.object
      return kwargs
 ```
+
+* Create Profile with User creation using signals:
+In signals.py in the app (where is the views.py):
+```
+@receiver(post_save, sender=UserModel)
+def user_created(sender, instance, created, *args, **kwargs):
+    if created:
+        Profile.objects.create(user=instance)
+```
+In apps.py inside the AccountsConfig:
+```
+    def ready(self):
+        import project_name.app_name.signals
+```

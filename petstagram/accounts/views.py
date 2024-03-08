@@ -1,13 +1,8 @@
-from django import forms
 from django.contrib.auth import get_user_model
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
-
 from django.contrib.auth.views import LoginView
-from django.db.models import Sum
-
 from django.urls import reverse_lazy
 from django.views.generic import DetailView, ListView, CreateView, UpdateView, DeleteView
-
 from petstagram.accounts.forms import CustomUserCreationForm, ProfileEditForm
 from petstagram.accounts.models import Profile
 from petstagram.common.models import PhotoLike
@@ -18,12 +13,14 @@ from django.contrib.auth.views import LogoutView
 UserModel = get_user_model()
 
 
+class LoginProfileView(LoginView):
+    authentication_form = AuthenticationForm
+    template_name = 'accounts/login-page.html'
 
 
-class CustomLogoutView(LogoutView):
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.template_name = 'common/home-page.html'
+class LogoutProfileView(LogoutView):
+    pass
+
 
 class CreateProfileView(CreateView):
     model = UserModel
@@ -40,11 +37,6 @@ class CreateProfileView(CreateView):
 
 
 
-
-class LoginProfileView(LoginView):
-    authentication_form = AuthenticationForm
-    template_name = 'accounts/login-page.html'
-    success_url = reverse_lazy('home-page')
 
 
 class DetailProfileView(DetailView, ListView):

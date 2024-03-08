@@ -90,15 +90,17 @@
             </a>
             {% endfor %}
           </div>
-          {% for photo in photos %}
-            <div class="pet-photos">
-                <a href="{% url 'photo-details' pk=photo.id %}">
-                  <img src="{{ photo.photo.url }}"  alt="{{ own_pets.first }}" />
-                </a>
-            </div>
-          {% empty %}
-            <img class="no-posts" src="{% static '/images/no_posts.png' %}"  alt="no posts"/>
-          {% endfor %}
+
+            {% for photo in photos %}
+              <div class="pet-photos">
+                  <a href="{% url 'photo-details' pk=photo.id %}">
+                    <img src="{{ photo.photo.url }}"  alt="{{ own_pets.first }}" />
+                  </a>
+              </div>
+            {% empty %}
+              <img class="no-posts" src="{% static '/images/no_posts.png' %}"  alt="no posts"/>
+            {% endfor %}
+
       </div>
     </div>
 

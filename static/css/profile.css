@@ -149,7 +149,7 @@
 
 .pet-photos {
     border-top: 1px solid #ddd;
-    width: 850px;
+    display: inline-block;
 }
 
 .pet-photos img {
@@ -159,6 +159,10 @@
     border-radius: 2px;
     box-shadow: 4px 4px 4px 4px #888888;
     object-fit: cover;
+}
+
+.pets {
+    width: 850px;
 }
 
 .pet-photos img:hover {

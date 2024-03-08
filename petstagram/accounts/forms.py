@@ -19,14 +19,6 @@ class CustomUserCreationForm(UserCreationForm):
         self.fields['password1'].help_text = ''
         self.fields['password2'].help_text = ''
 
-
-    def save(self, commit=True):
-        user = super().save(commit=commit)
-        profile = Profile(user=user)
-        if commit:
-            profile.save()
-        return user
-
 class ProfileEditForm(forms.ModelForm):
 
     class Meta:
