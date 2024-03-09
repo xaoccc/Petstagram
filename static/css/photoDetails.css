@@ -67,3 +67,14 @@
     margin-left: 5px;
 }
 
+.delete-photo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 100px;
+}
+
+.delete-photo img {
+    max-width: 600px;
+}
+

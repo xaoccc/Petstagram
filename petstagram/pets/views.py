@@ -3,7 +3,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy, reverse
 from django.views.generic import CreateView, DetailView, UpdateView, DeleteView
 from petstagram.common.forms import CommentForm
-from petstagram.mixins.views_mixins import GetPetBySlugAndOwnerMixin
+from petstagram.mixins.views_mixins import GetPetBySlugAndOwnerMixin, ProfileOwnerMixin, PetOwnerMixin
 from petstagram.pets.models import Pet
 from petstagram.pets.forms import PetCreateForm, PetEditForm, PetDeleteForm
 
@@ -35,7 +35,7 @@ class DetailsPetView(GetPetBySlugAndOwnerMixin, LoginRequiredMixin, DetailView):
         return context
 
 
-class EditPetView(GetPetBySlugAndOwnerMixin, LoginRequiredMixin, UpdateView):
+class EditPetView(PetOwnerMixin, GetPetBySlugAndOwnerMixin, LoginRequiredMixin, UpdateView):
     model = Pet
     template_name = 'pets/pet-edit-page.html'
     form_class = PetEditForm
@@ -44,7 +44,7 @@ class EditPetView(GetPetBySlugAndOwnerMixin, LoginRequiredMixin, UpdateView):
     def get_success_url(self):
         return reverse('pet-show', kwargs={"pk": self.request.user.pk, "pet_slug": self.object.slug})
 
-class DeletePetView(GetPetBySlugAndOwnerMixin, LoginRequiredMixin, DeleteView):
+class DeletePetView(PetOwnerMixin, GetPetBySlugAndOwnerMixin, LoginRequiredMixin, DeleteView):
     model = Pet
     template_name = 'pets/pet-delete-page.html'
     context_object_name = 'pet'

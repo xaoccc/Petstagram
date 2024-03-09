@@ -1,0 +1,35 @@
+{% extends 'common/base.html' %}
+{% block content %}
+{% load static %}
+
+<!-- Starts Main Section -->
+<main>
+        <div class="delete-photo">
+            <div>
+                <img src="{{ object.photo.url }}" alt="{{ object.tagged_pets.first }}">
+            </div>
+    <!-- Start Delete Profile Section -->
+            <div>
+                <h1>
+                    Are you sure you want to delete this picture?
+                </h1>
+
+                <div class="sure-buttons">
+
+                    <!-- Yes (Delete Profile) Button -->
+                    <form action="" method="post">
+
+                        {% csrf_token %}
+                        <button>Yes</button>
+                    </form>
+
+                    <!-- Go Back Button -->
+                    <a class="edit-btn" href="javascript:history.back()">Go Back</a>
+                </div>
+            </div>
+    <!-- End Delete Profile Section -->
+    </div>
+</main>
+<!-- End Main Section -->
+
+{% endblock %}

@@ -7,6 +7,7 @@ from django.views.generic import DetailView, ListView, CreateView, UpdateView, D
 from petstagram.accounts.forms import CustomUserCreationForm, ProfileEditForm
 from petstagram.accounts.models import Profile
 from petstagram.common.models import PhotoLike
+from petstagram.mixins.views_mixins import ProfileOwnerMixin
 from petstagram.pets.models import Pet
 from petstagram.photos.models import Photo
 from django.contrib.auth.views import LogoutView
@@ -43,9 +44,6 @@ class CreateProfileView(CreateView):
         return result
 
 
-
-
-
 class DetailProfileView(LoginRequiredMixin, DetailView, ListView):
     model = Profile
     template_name = 'accounts/profile-details-page.html'
@@ -65,19 +63,23 @@ class DetailProfileView(LoginRequiredMixin, DetailView, ListView):
 
         return context
 
+
 class EditProfileView(LoginRequiredMixin, UpdateView):
     model = Profile
     template_name = 'accounts/profile-edit-page.html'
     form_class = ProfileEditForm
 
     def get_object(self, queryset=None):
+        obj = super().get_object(queryset)
+        if obj != self.request.user.profile:
+            raise PermissionError('You are not allowed to edit or delete this profile')
         return self.request.user.profile
 
     def get_success_url(self):
         return reverse_lazy('profile-show', kwargs={'pk': self.object.pk})
 
 
-class DeleteProfileView(LoginRequiredMixin, DeleteView):
+class DeleteProfileView(ProfileOwnerMixin, LoginRequiredMixin, DeleteView):
     model = UserModel
     template_name = 'accounts/profile-delete-page.html'
     success_url = reverse_lazy('home-page')

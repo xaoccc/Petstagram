@@ -18,6 +18,7 @@ class Photo(models.Model):
     location = models.CharField(max_length=30, blank=True, null=True)
     tagged_pets = models.ManyToManyField(Pet, blank=True, related_name="photo_pet")
     publication_date = models.DateField(auto_now=True)
+    profile = models.ForeignKey('accounts.Profile', on_delete=models.CASCADE)
 
 
 
