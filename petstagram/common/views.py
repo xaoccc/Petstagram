@@ -24,10 +24,6 @@ class HomePageView(ListView):
         if Profile.objects.filter(pk=self.request.user.pk):
             context['profile'] = Profile.objects.get(pk=self.request.user.pk)
         pet_name_pattern = self.request.GET.get("pet_name", None)
-        context['this_user_this_photo_photo_likes'] = PhotoLike.objects.filter(
-            user_liked_id=self.request.user.id,
-            to_photo_id=self.request.GET.get("pet_photo_id", None)
-        )
         if pet_name_pattern:
             context['request_pet_name'] = self.request_pet_name(pet_name_pattern)
         else:
