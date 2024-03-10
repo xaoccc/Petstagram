@@ -55,17 +55,11 @@
                             <a href="{% url 'like' pet_photo.id %}">
 
 
-                                {% for like in pet_photo.photolike_set.all %}
-                                    {% if forloop.counter < 2 %}
-                                        {% if request.user ==  like.user_liked %}
-                                            <i class="fa-solid fa-heart" style="color: #ed4040;"></i>
-
-                                        {% else %}
-                                            <i class="fa-regular fa-heart"></i>
-
-                                        {% endif %}
-                                    {% endif %}
-                                {% endfor %}
+                                {% if current_user_current_photo_likes %}
+                                    <i class="fa-solid fa-heart" style="color: #ed4040;"></i>
+                                {% else %}
+                                    <i class="fa-regular fa-heart"></i>
+                                {% endif %}
 
                             </a>
                         </span>
@@ -105,5 +99,6 @@
         </div>
     </div>
     {% endfor %}
+
 
 {% endblock %}
