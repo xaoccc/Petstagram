@@ -66,15 +66,8 @@ def like_functionality(request, photo_id):
         like = PhotoLike(to_photo=photo, user_liked_id=user.id)
         like.save()
 
-    context = {
-        'all_photos': Photo.objects.all(),
-        'comment_form': CommentForm(),
-        'profile': Profile.objects.get(pk=request.user.pk),
-        'current_user_current_photo_likes': PhotoLike.objects.filter(user_liked_id=request.user.id, to_photo=photo_id)
-    }
+    return redirect(request.META['HTTP_REFERER'] + f'#{photo_id}')
 
-    # return redirect(request.META['HTTP_REFERER'] + f'#{photo_id}')
-    return render(request, 'common/home-page.html', context=context)
 
 
 def copy_link_to_clipboard(request, photo_id):
